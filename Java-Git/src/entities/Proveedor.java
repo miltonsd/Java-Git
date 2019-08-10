@@ -6,8 +6,6 @@ public class Proveedor {
 	private String tel;
 	private String direccion;
 	private String email;
-	private String usuario;
-	private String password;
 	
 	public String getCuit() {
 		return cuit;
@@ -38,17 +36,5 @@ public class Proveedor {
 	}
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	public String getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 }

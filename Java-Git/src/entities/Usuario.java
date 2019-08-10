@@ -1,22 +1,22 @@
 package entities;
 
 public class Usuario {
-	private int id;
+	private int id_usuario;
 	private String nombre;
 	private String apellido;
 	private String dni;
-	private String direccion;
-	private String tel;
 	private String email;
-	private String usuario;
+	private String tel;
+	private String user;
 	private String password;
 	private Rol rol;
+	private Boolean habilitado;
 	
-	public int getId() {
-		return id;
+	public int getId_usuario() {
+		return id_usuario;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId_usuario(int id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 	public String getNombre() {
 		return nombre;
@@ -36,11 +36,11 @@ public class Usuario {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	public String getDireccion() {
-		return direccion;
+	public String getEmail() {
+		return email;
 	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getTel() {
 		return tel;
@@ -48,17 +48,11 @@ public class Usuario {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public String getEmail() {
-		return email;
+	public String getUser() {
+		return user;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setUser(String user) {
+		this.user = user;
 	}
 	public String getPassword() {
 		return password;
@@ -71,5 +65,11 @@ public class Usuario {
 	}
 	public void setRol(Rol rol) {
 		this.rol = rol;
+	}
+	public Boolean getHabilitado() {
+		return habilitado;
+	}
+	public void setHabilitado(Boolean habilitado) {
+		this.habilitado = habilitado;
 	}
 }

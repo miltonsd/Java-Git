@@ -3,9 +3,9 @@ package entities;
 public class Repuesto {
 	private int id_repuesto;
 	private String descripcion;
-	private double precio_unit;
 	private int stock;
-	private int puntoPedido;
+	private int punto_pedido;
+	private double precio_unitario;
 	
 	public int getId_repuesto() {
 		return id_repuesto;
@@ -19,22 +19,22 @@ public class Repuesto {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public double getPrecio_unit() {
-		return precio_unit;
-	}
-	public void setPrecio_unit(double precio_unit) {
-		this.precio_unit = precio_unit;
-	}
 	public int getStock() {
 		return stock;
 	}
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	public int getPuntoPedido() {
-		return puntoPedido;
+	public int getPunto_pedido() {
+		return punto_pedido;
 	}
-	public void setPuntoPedido(int puntoPedido) {
-		this.puntoPedido = puntoPedido;
-	}	
+	public void setPunto_pedido(int punto_pedido) {
+		this.punto_pedido = punto_pedido;
+	}
+	public double getPrecio_unitario() {
+		return precio_unitario;
+	}
+	public void setPrecio_unitario(double precio_unitario) {
+		this.precio_unitario = precio_unitario;
+	}		
 }

@@ -5,7 +5,7 @@ public class Automovil {
 	private String marca;
 	private String modelo;
 	private String color;
-	private Cliente cliente;
+	private Usuario cliente;
 
 	public String getPatente() {
 		return patente;
@@ -31,10 +31,10 @@ public class Automovil {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public Cliente getCliente() {
+	public Usuario getCliente() {
 		return cliente;
 	}
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Usuario cliente) {
 		this.cliente = cliente;
 	}
 }

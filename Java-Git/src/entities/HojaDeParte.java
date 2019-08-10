@@ -1,13 +1,13 @@
 package entities;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HojaDeParte {
 	private int id_hoja;
 	private Usuario mecanico;
 	private Automovil auto;
-	private double manoDeObra;
-	ArrayList<Repuesto> rep = new ArrayList<Repuesto>();
+	private double costo_manoDeObra;
+	HashMap<Repuesto, Integer> repuestos = new HashMap<Repuesto, Integer>();
 	
 	public int getId_hoja() {
 		return id_hoja;
@@ -27,16 +27,16 @@ public class HojaDeParte {
 	public void setAuto(Automovil auto) {
 		this.auto = auto;
 	}
-	public double getManoDeObra() {
-		return manoDeObra;
+	public double getCosto_manoDeObra() {
+		return costo_manoDeObra;
 	}
-	public void setManoDeObra(double manoDeObra) {
-		this.manoDeObra = manoDeObra;
+	public void setCosto_manoDeObra(double costo_manoDeObra) {
+		this.costo_manoDeObra = costo_manoDeObra;
 	}
-	public ArrayList<Repuesto> getRep() {
-		return rep;
+	public HashMap<Repuesto, Integer> getRepuestos() {
+		return repuestos;
 	}
-	public void setRep(ArrayList<Repuesto> rep) {
-		this.rep = rep;
+	public void setRepuestos(Repuesto rep, int cant) {
+		this.repuestos.put(rep, cant);
 	}
 }
