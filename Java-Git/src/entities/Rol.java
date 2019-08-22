@@ -1,19 +1,20 @@
 package entities;
 
-public class Rol {
-	private int cod_rol;
-	private String descripcion; // 1 - Cliente ; 2 - Mecánico ; 3 - Administrador 
+public class Rol extends Entity
+{
+	private int _idrol;
+	private String _descripcion; // 1 - Cliente ; 2 - Mecï¿½nico ; 3 - Administrador 
 	
-	public int getCod_rol() {
-		return cod_rol;
+	public int getIDRol() {
+		return _idrol;
 	}
-	public void setCod_rol(int cod_rol) {
-		this.cod_rol = cod_rol;
+	public void setIDRol(int cod_rol) {
+		this._idrol = cod_rol;
 	}
 	public String getDescripcion() {
-		return descripcion;
+		return _descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this._descripcion = descripcion;
 	}
 }

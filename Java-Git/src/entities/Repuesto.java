@@ -1,40 +1,59 @@
 package entities;
 
-public class Repuesto {
-	private int id_repuesto;
-	private String descripcion;
-	private int stock;
-	private int punto_pedido;
-	private double precio_unitario;
+public class Repuesto extends Entity
+{
+	private int _idrepuesto;
+	private String _descripcion;
+	private int _stock;
+	private int _punto_pedido;
+	private float _precio_unitario;
+	private int _cuitproveedor;
+	private int _idtiporepuesto;
 	
-	public int getId_repuesto() {
-		return id_repuesto;
+	public int getIDRepuesto() {
+		return _idrepuesto;
 	}
-	public void setId_repuesto(int id_repuesto) {
-		this.id_repuesto = id_repuesto;
+	public void setIDRepuesto(int id_repuesto) {
+		this._idrepuesto = id_repuesto;
+		
+	}
+	public int getCuitProveedor() {
+		return _cuitproveedor;
+	}
+	public void setCuitProveedor(int cuit) {
+		this._cuitproveedor = cuit;
+		
+	}
+	
+	public int getIDTipoRepuesto() {
+		return _idtiporepuesto;
+	}
+	public void setIDTipoRepuesto(int idtiporepuesto) {
+		this._idtiporepuesto = idtiporepuesto;
+		
 	}
 	public String getDescripcion() {
-		return descripcion;
+		return _descripcion;
 	}
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this._descripcion = descripcion;
 	}
 	public int getStock() {
-		return stock;
+		return _stock;
 	}
 	public void setStock(int stock) {
-		this.stock = stock;
+		this._stock = stock;
 	}
-	public int getPunto_pedido() {
-		return punto_pedido;
+	public int getPuntoPedido() {
+		return _punto_pedido;
 	}
-	public void setPunto_pedido(int punto_pedido) {
-		this.punto_pedido = punto_pedido;
+	public void setPuntoPedido(int punto_pedido) {
+		this._punto_pedido = punto_pedido;
 	}
-	public double getPrecio_unitario() {
-		return precio_unitario;
+	public float getPrecioUnitario() {
+		return _precio_unitario;
 	}
-	public void setPrecio_unitario(double precio_unitario) {
-		this.precio_unitario = precio_unitario;
+	public void setPrecioUnitario(float precio_unitario) {
+		this._precio_unitario = precio_unitario;
 	}		
 }

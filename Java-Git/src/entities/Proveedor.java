@@ -1,28 +1,30 @@
 package entities;
 
-public class Proveedor {
-	private String cuit;
-	private String razon_social;
-	private String tel;
+public class Proveedor extends Entity 
+{
+	private int _idcuit;
+	private String _razon_social;
+	private int tel;
 	private String direccion;
 	private String email;
 	
-	public String getCuit() {
-		return cuit;
+	public int getIDCuit() {
+		return _idcuit;
 	}
-	public void setCuit(String cuit) {
-		this.cuit = cuit;
+	public void setIDCuit(int cuit) {
+		this._idcuit = cuit;
 	}
-	public String getRazon_social() {
-		return razon_social;
-	}
+	public String getRazon_social() 
+	{
+		return _razon_social;
+		}
 	public void setRazon_social(String razon_social) {
-		this.razon_social = razon_social;
+		this._razon_social = razon_social;
 	}
-	public String getTel() {
+	public int getTel() {
 		return tel;
 	}
-	public void setTel(String tel) {
+	public void setTel(int tel) {
 		this.tel = tel;
 	}
 	public String getDireccion() {

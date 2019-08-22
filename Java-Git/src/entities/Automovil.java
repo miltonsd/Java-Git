@@ -1,40 +1,44 @@
 package entities;
 
-public class Automovil {
-	private String patente; // AB123CD
-	private String marca;
-	private String modelo;
-	private String color;
-	private Usuario cliente;
+public class Automovil extends Entity
+{   
+  
+	private String _idpatente; // AB123CD
+	private String _marca;
+	private String _modelo;
+	private String _color;
+	private int _idusuario;
 
 	public String getPatente() {
-		return patente;
+		return _idpatente;
 	}
+	
 	public void setPatente(String patente) {
-		this.patente = patente;
+		this._idpatente = patente;
+		
 	}
 	public String getMarca() {
-		return marca;
+		return _marca;
 	}
 	public void setMarca(String marca) {
-		this.marca = marca;
+		this._marca = marca;
 	}
 	public String getModelo() {
-		return modelo;
+		return _modelo;
 	}
 	public void setModelo(String modelo) {
-		this.modelo = modelo;
+		this._modelo = modelo;
 	}
 	public String getColor() {
-		return color;
+		return _color;
 	}
 	public void setColor(String color) {
-		this.color = color;
+		this._color = color;
 	}
-	public Usuario getCliente() {
-		return cliente;
+	public int getIDCliente() {
+		return _idusuario;
 	}
-	public void setCliente(Usuario cliente) {
-		this.cliente = cliente;
+	public void setIDCliente(int idcliente) {
+		this._idusuario = idcliente;
 	}
 }

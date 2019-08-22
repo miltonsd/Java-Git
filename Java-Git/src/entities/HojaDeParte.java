@@ -1,42 +1,57 @@
 package entities;
 
-import java.util.HashMap;
+//import java.util.HashMap;
 
-public class HojaDeParte {
-	private int id_hoja;
-	private Usuario mecanico;
-	private Automovil auto;
-	private double costo_manoDeObra;
-	HashMap<Repuesto, Integer> repuestos = new HashMap<Repuesto, Integer>();
+public class HojaDeParte extends Entity
+{
+	private int _idhoja;
+	private int _idmecanico;
+	private int _idfactura;
+	private String _idpatente;
+	private float _costomanodeobra;
 	
-	public int getId_hoja() {
-		return id_hoja;
+	
+	//HashMap<Repuesto, Integer> repuestos = new HashMap<Repuesto, Integer>();
+	
+
+	public int getIDFactura()
+	{
+		return _idfactura;
 	}
-	public void setId_hoja(int id_hoja) {
-		this.id_hoja = id_hoja;
+	public int setIDFactura()
+	{
+		return _idfactura;
 	}
-	public Usuario getMecanico() {
-		return mecanico;
+
+	public int getIDHoja() {
+		return _idhoja;
+		}
+	public void setIDHoja(int id_hoja) {
+		this._idhoja = id_hoja;
 	}
-	public void setMecanico(Usuario mecanico) {
-		this.mecanico = mecanico;
+	public int getIDMecanico() {
+		return _idmecanico;
 	}
-	public Automovil getAuto() {
-		return auto;
+	public void setMecanico(int mecanico) {
+		this._idmecanico = mecanico;
 	}
-	public void setAuto(Automovil auto) {
-		this.auto = auto;
+	public String getIDPatente() {
+		return _idpatente;
 	}
-	public double getCosto_manoDeObra() {
-		return costo_manoDeObra;
+	public void setIDPatente(String idpatente) {
+		this._idpatente = idpatente;
 	}
-	public void setCosto_manoDeObra(double costo_manoDeObra) {
-		this.costo_manoDeObra = costo_manoDeObra;
+	public float getCostoManoDeObra() {
+		return _costomanodeobra;
 	}
-	public HashMap<Repuesto, Integer> getRepuestos() {
+	public void setCostoManoDeObra(float costomanodeobra) {
+		this._costomanodeobra = costomanodeobra;
+	}
+/*	public HashMap<Repuesto, Integer> getRepuestos() {
 		return repuestos;
-	}
-	public void setRepuestos(Repuesto rep, int cant) {
+	} */
+	
+/*	public void setRepuestos(Repuesto rep, int cant) {
 		this.repuestos.put(rep, cant);
-	}
+	}*/
 }
