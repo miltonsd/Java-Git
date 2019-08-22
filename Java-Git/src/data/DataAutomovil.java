@@ -1,0 +1,265 @@
+package data;
+import entities.*;
+import java.sql.*;
+import java.util.ArrayList;
+
+@SuppressWarnings("unused")
+public class DataAutomovil 
+{
+	
+	
+	// Traer todos
+	@SuppressWarnings("finally")
+	public ArrayList<Automovil> GetAll()
+	{
+		ArrayList<Automovil> autos = new ArrayList<>() ;
+		PreparedStatement pst=null;
+		ResultSet rs=null;
+		
+		try 
+		{
+		    pst= FactoryConexion.getInstancia().getConn().prepareStatement
+					("select * from automoviles ");
+           
+			rs= pst.executeQuery();
+			if(rs!=null) 
+			{
+				while(rs.next()) 
+			   {
+					entities.Automovil auto = new Automovil();
+					auto.setIDCliente(rs.getInt("id_cliente"));
+					auto.setColor(rs.getString("color"));
+					auto.setMarca(rs.getString("marca"));
+					auto.setModelo(rs.getString("modelo"));
+					auto.setPatente(rs.getString("id_patente"));
+					
+					
+					autos.add(auto);
+					
+				}
+				
+		    }
+		}
+		catch (SQLException e)
+		{
+		     e.printStackTrace();
+		}
+				
+		
+		finally 
+		{
+			
+			try 
+		   {
+			if(rs!=null) 
+			{
+				rs.close();
+			}
+			
+			if(pst!=null)
+			{
+				pst.close();
+			}
+			
+			FactoryConexion.getInstancia().releaseConn();
+			
+		     } 
+			catch (SQLException e) 
+		  {
+			e.printStackTrace();
+			
+		  }
+			
+			return autos;
+    	}
+			
+		
+		
+		
+	}
+
+	// Traer uno
+	@SuppressWarnings("finally")
+	public entities.Automovil GetOne(String  nropatente)
+	{
+		entities.Automovil auto = new entities.Automovil() ;
+		PreparedStatement pst=null;
+		ResultSet rs=null;
+		try 
+		{
+		    pst= FactoryConexion.getInstancia().getConn().prepareStatement
+					("select * from automovil where id_patente = ?");
+            pst.setString(1, nropatente);
+			rs= pst.executeQuery();
+			if(rs!=null && rs.next()) 
+			{
+				
+					auto.setIDCliente(rs.getInt("id_usuario"));
+					auto.setColor(rs.getString("color"));
+					auto.setMarca(rs.getString("marca"));
+					auto.setModelo(rs.getString("modelo"));
+					auto.setPatente(rs.getString("id_patente"));
+				
+		    }
+		}
+		
+		catch (SQLException e)
+		{
+		     e.printStackTrace();
+		}
+				
+		
+		finally 
+		{
+			
+			try 
+		   {
+			if(rs!=null) 
+			{
+				rs.close();
+			}
+			
+			if(pst!=null)
+			{
+				pst.close();
+			}
+			
+			FactoryConexion.getInstancia().releaseConn();
+			
+		     } 
+			catch (SQLException e) 
+		  {
+			e.printStackTrace();
+			
+		  }
+			
+			return auto;
+    	}
+			
+	}
+		
+	
+	
+	//ABM
+	
+	public void Delete(String ID)
+	{ 
+	  PreparedStatement stmt= null;
+		try 
+		{				
+			stmt=FactoryConexion.getInstancia().getConn().
+					prepareStatement("delete from automoviles where id_patente=?");
+			stmt.setString(1, ID);
+			stmt.execute();				
+		}
+		catch(SQLException e)
+		{
+			 e.printStackTrace();
+		}
+		finally 
+		{
+			FactoryConexion.getInstancia().releaseConn();
+		}	
+			
+		
+		
+	}
+	public void Update(entities.Automovil auto)
+	{
+		PreparedStatement stmt= null;
+		
+		try 
+		{				
+			stmt=FactoryConexion.getInstancia().getConn().
+					prepareStatement("UPDATE automoviles SET id_usuario = ? ,color = ? ,marca = ?,modelo= ? where id_patente = ?");
+			
+			stmt.setInt(1,auto.getIDCliente());
+			stmt.setString(2,auto.getColor());
+			stmt.setString(3,auto.getMarca());
+			stmt.setString(4,auto.getModelo());
+			stmt.setString(5,auto.getPatente());
+			
+			stmt.execute();
+
+		}
+		catch(SQLException e)
+		{
+			 e.printStackTrace();
+		}
+		finally 
+		{
+			FactoryConexion.getInstancia().releaseConn();
+		}	
+			
+		
+		
+		
+		
+	}
+	public void Insert(entities.Automovil auto)
+	{  
+	   PreparedStatement stmt= null;
+	  
+		try {
+			stmt=FactoryConexion.getInstancia().getConn().
+					prepareStatement(
+							"insert into automoviles(id_cliente ,color ,marca ,modelo ,patente) values(?,?,?,?,?)",
+							PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			
+			stmt.setInt(1,auto.getIDCliente());
+			stmt.setString(2,auto.getColor());
+			stmt.setString(3,auto.getMarca());
+			stmt.setString(4,auto.getModelo());
+			stmt.setString(5,auto.getPatente());
+			stmt.executeUpdate();
+			
+			
+       
+		}
+		catch(SQLException e)
+		{
+			   e.printStackTrace();
+		}
+		
+		finally 
+		{
+			 FactoryConexion.getInstancia().releaseConn();
+		}
+		
+		
+	}
+	public void Save(entities.Automovil auto) 
+	{
+		
+		switch(auto.getState())
+		
+		{
+		case Deleted:
+			this.Delete(auto.getPatente());
+		break;
+		
+		case New:
+			this.Insert(auto);
+		break;
+		
+		case Modified:
+			this.Update(auto);
+			break;
+		default:
+			auto.setState(entities.Entity.States.Unmodified);
+		   break;
+		}
+		
+		
+	}
+	
+	
+	
+	
+}
+
+	
+	
+
+
