@@ -18,9 +18,9 @@ public class HojaDeParte extends Entity
 	{
 		return _idfactura;
 	}
-	public int setIDFactura()
+	public void setIDFactura(int _idfactura)
 	{
-		return _idfactura;
+		this._idfactura =_idfactura;
 	}
 
 	public int getIDHoja() {

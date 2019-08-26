@@ -9,6 +9,7 @@ public class HojaRepuestos
 	private float _preciototal;
 	
 	
+	
 	public int getIDRepuesto()
 	{
 		return _idrepuesto;
