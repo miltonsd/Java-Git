@@ -1,59 +1,88 @@
 package entities;
 
-public class Repuesto extends Entity
+import entities.Entity.States;
+
+public class Repuesto implements Entity
 {
-	private int _idrepuesto;
-	private String _descripcion;
-	private int _stock;
-	private int _punto_pedido;
-	private float _precio_unitario;
-	private int _cuitproveedor;
-	private int _idtiporepuesto;
+	private int idrepuesto;
+	private String descripcion;
+	private int stock;
+	private int punto_pedido;
+	private float precio_unitario;
+	private Proveedor proveedor;
+	private TipoRepuesto tiporepuesto;
+	private States state;
+	public States getState() 
+    {
+		return this.state;
+    }
+	public  void setState(States state) 
+    {
+		this.state = state;
+    }
+	public Object getID()
+	{
+		return this.idrepuesto;
+	}
+	public void setID(Object idrepuesto)
+	{
+		if(idrepuesto.getClass() == Integer.class)
+	    {
+			this.idrepuesto=(Integer) idrepuesto;
+	    }
+		else
+		{	
+		new Exception("El ID agregado no pertenece al tipo valido para la clase");	
+	    }
+		
+	}
 	
-	public int getIDRepuesto() {
-		return _idrepuesto;
+	public Proveedor getProveedor()
+	{
+		return proveedor;
 	}
-	public void setIDRepuesto(int id_repuesto) {
-		this._idrepuesto = id_repuesto;
-		
-	}
-	public int getCuitProveedor() {
-		return _cuitproveedor;
-	}
-	public void setCuitProveedor(int cuit) {
-		this._cuitproveedor = cuit;
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
 		
 	}
 	
-	public int getIDTipoRepuesto() {
-		return _idtiporepuesto;
+	public TipoRepuesto getTipoRepuesto() {
+		return tiporepuesto;
 	}
-	public void setIDTipoRepuesto(int idtiporepuesto) {
-		this._idtiporepuesto = idtiporepuesto;
+	public void setTipoRepuesto(TipoRepuesto tiporepuesto)
+	{
+		this.tiporepuesto= tiporepuesto;
 		
 	}
+	
 	public String getDescripcion() {
-		return _descripcion;
+		return descripcion;
 	}
-	public void setDescripcion(String descripcion) {
-		this._descripcion = descripcion;
+	public void setDescripcion(String descripcion) 
+	{
+		this.descripcion = descripcion;
 	}
-	public int getStock() {
-		return _stock;
+	
+	public int getStock()
+	{
+		return stock;
 	}
-	public void setStock(int stock) {
-		this._stock = stock;
+	public void setStock(int stock) 
+	{
+		this.stock = stock;
 	}
+	
 	public int getPuntoPedido() {
-		return _punto_pedido;
+		return punto_pedido;
 	}
 	public void setPuntoPedido(int punto_pedido) {
-		this._punto_pedido = punto_pedido;
+		this.punto_pedido = punto_pedido;
 	}
+
 	public float getPrecioUnitario() {
-		return _precio_unitario;
+		return precio_unitario;
 	}
 	public void setPrecioUnitario(float precio_unitario) {
-		this._precio_unitario = precio_unitario;
+		this.precio_unitario = precio_unitario;
 	}		
 }

@@ -25,10 +25,10 @@ public class DataHojaDeParte {
 						while(rs.next()) 
 					   {
 							entities.HojaDeParte hoja = new HojaDeParte();
-							hoja.setIDHoja(rs.getInt("id_hoja"));
-							hoja.setIDFactura(rs.getInt("id_factura"));
-							hoja.setIDPatente(rs.getString("id_patente"));
-							hoja.setMecanico(rs.getInt("id_mecanico"));
+							hoja.setID(rs.getInt("id_hoja"));
+							hoja.getFactura().setID(rs.getInt("id_factura"));
+							hoja.getAutomovil().setID(rs.getString("id_patente"));
+							hoja.getMecanico().setID(rs.getInt("id_mecanico"));
 							hoja.setCostoManoDeObra(rs.getFloat("costo_mano_de_obra"));
 							hojas.add(hoja);
 							
@@ -87,10 +87,10 @@ public class DataHojaDeParte {
 					rs= pst.executeQuery();
 					if(rs!=null && rs.next())  
 					{
-						hoja.setIDHoja(rs.getInt("id_hoja"));
-						hoja.setIDFactura(rs.getInt("id_factura"));
-						hoja.setIDPatente(rs.getString("id_patente"));
-						hoja.setMecanico(rs.getInt("id_mecanico"));
+						hoja.setID(rs.getInt("id_hoja"));
+						hoja.getFactura().setID(rs.getInt("id_factura"));
+						hoja.getAutomovil().setID(rs.getString("id_patente"));
+						hoja.getMecanico().setID(rs.getInt("id_mecanico"));
 						hoja.setCostoManoDeObra(rs.getFloat("costo_mano_de_obra"));
 						
 							
@@ -167,10 +167,10 @@ public class DataHojaDeParte {
 							prepareStatement("UPDATE hojas_de_parte SET costo_mano_de_obra=?,id_mecanico=?,id_factura=?,id_patente=? where id_hoja = ?");
 					
 					stmt.setFloat(1, hoja.getCostoManoDeObra());
-					stmt.setInt(2, hoja.getIDMecanico());
-					stmt.setInt(3, hoja.getIDFactura());
-					stmt.setString(4, hoja.getIDPatente());
-					stmt.setInt(5, hoja.getIDHoja());
+					stmt.setInt(2, (int)hoja.getMecanico().getID());
+					stmt.setInt(3, (int)hoja.getFactura().getID());
+					stmt.setString(4,(String) hoja.getAutomovil().getID());
+					stmt.setInt(5, (int)hoja.getID());
 	
 					stmt.execute();
 				
@@ -202,16 +202,16 @@ public class DataHojaDeParte {
 					
 					
 					stmt.setFloat(1, hoja.getCostoManoDeObra());
-					stmt.setInt(2, hoja.getIDMecanico());
-					stmt.setInt(3, hoja.getIDFactura());
-					stmt.setString(4, hoja.getIDPatente());
-					stmt.setInt(5, hoja.getIDHoja());
+					stmt.setInt(2, (int) hoja.getMecanico().getID());
+					stmt.setInt(3, (int) hoja.getFactura().getID());
+					stmt.setString(4,(String) hoja.getAutomovil().getID());
+					stmt.setInt(5, (int) hoja.getID());
 					stmt.executeUpdate();
 					
 					keyResultSet=stmt.getGeneratedKeys();
 		            if(keyResultSet!=null && keyResultSet.next())
 		            {
-		               hoja.setIDHoja(keyResultSet.getInt(1));
+		               hoja.setID(keyResultSet.getInt(1));
 		            }
 			        }
 				
@@ -233,25 +233,25 @@ public class DataHojaDeParte {
 				
 				
 			}
-			public void Save(entities.HojaDeParte repuesto) 
+			public void Save(entities.HojaDeParte hoja) 
 			{
 				
-				switch(repuesto.getState())
+				switch(hoja.getState())
 				
 				{
 				case Deleted:
-					this.Delete(repuesto.getID());
+					this.Delete((int) hoja.getID());
 				break;
 				
 				case New:
-					this.Insert(repuesto);
+					this.Insert(hoja);
 				break;
 				
 				case Modified:
-					this.Update(repuesto);
+					this.Update(hoja);
 					break;
 				default:
-				   repuesto.setState(entities.Entity.States.Unmodified);
+				   hoja.setState(entities.Entity.States.Unmodified);
 				   break;
 				}
 				}

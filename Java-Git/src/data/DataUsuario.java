@@ -29,14 +29,14 @@ public class DataUsuario
 						while(rs.next()) 
 					   {
 							entities.Usuario Usuario = new Usuario();
-							Usuario.setIDUsuario(rs.getInt("id_usuario"));
+							Usuario.setID(rs.getInt("id_usuario"));
 							Usuario.setDni(rs.getInt("dni"));
 							Usuario.setEmail(rs.getString("email"));
 							Usuario.setApellido(rs.getString("apellido"));
 							Usuario.setNombre(rs.getString("nombre"));
 							Usuario.setPassword(rs.getString("password"));
 							Usuario.setUser(rs.getString("user"));
-							Usuario.setRol(rs.getInt("id_rol"));
+							Usuario.getRol().setID(rs.getInt("id_rol"));
 							Usuario.setTel(rs.getInt("tel"));
 							Usuario.setHabilitado(rs.getBoolean("habilitado"));
 							
@@ -98,14 +98,14 @@ public class DataUsuario
 					if(rs!=null && rs.next()) 
 					{
 						
-							Usuario.setIDUsuario(rs.getInt("id_usuario"));
+							Usuario.setID(rs.getInt("id_usuario"));
 							Usuario.setDni(rs.getInt("dni"));
 							Usuario.setEmail(rs.getString("email"));
 							Usuario.setApellido(rs.getString("apellido"));
 							Usuario.setNombre(rs.getString("nombre"));
 							Usuario.setPassword(rs.getString("password"));
 							Usuario.setUser(rs.getString("user"));
-							Usuario.setRol(rs.getInt("id_rol"));
+							Usuario.getRol().setID(rs.getInt("id_rol"));
 							Usuario.setTel(rs.getInt("tel"));
 							Usuario.setHabilitado(rs.getBoolean("habilitado"));
 				    }
@@ -186,9 +186,9 @@ public class DataUsuario
 					stmt.setString(5,usuario.getNombre());
 					stmt.setString(6,usuario.getPassword());
 					stmt.setString(7,usuario.getUser());
-					stmt.setInt(8,usuario.getRol());
+					stmt.setInt(8,(int) usuario.getRol().getID());
 					stmt.setInt(9,usuario.getTel());
-					stmt.setInt(10,usuario.getIDUsuario());
+					stmt.setInt(10,(int)usuario.getID());
 					stmt.execute();
 
 				}
@@ -224,7 +224,7 @@ public class DataUsuario
 					stmt.setString(5,usuario.getNombre());
 					stmt.setString(6,usuario.getPassword());
 					stmt.setString(7,usuario.getUser());
-					stmt.setInt(8,usuario.getRol());
+					stmt.setInt(8,(int) usuario.getRol().getID());
 					stmt.setInt(9,usuario.getTel());
 					
 					stmt.executeUpdate();
@@ -232,7 +232,7 @@ public class DataUsuario
 					keyResultSet=stmt.getGeneratedKeys();
 		            if(keyResultSet!=null && keyResultSet.next())
 		            {
-		               usuario.setIDUsuario(keyResultSet.getInt(1));
+		               usuario.setID(keyResultSet.getInt(1));
 		            }
 			        }
 				
@@ -261,7 +261,7 @@ public class DataUsuario
 				
 				{
 				case Deleted:
-					this.Delete(usuario.getID());
+					this.Delete((int) usuario.getID());
 				break;
 				
 				case New:

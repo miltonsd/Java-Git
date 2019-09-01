@@ -28,11 +28,11 @@ public class DataRepuesto
 					while(rs.next()) 
 				   {
 						entities.Repuesto repuesto = new Repuesto();
-						repuesto.setIDRepuesto(rs.getInt("id_repuesto"));
+						repuesto.setID(rs.getInt("id_repuesto"));
 						repuesto.setDescripcion(rs.getString("descripcion"));
-						repuesto.setIDTipoRepuesto(rs.getInt("id_tipo_repuesto"));
+						repuesto.getTipoRepuesto().setID(rs.getInt("id_tipo_repuesto"));
 						repuesto.setPrecioUnitario(rs.getFloat("precio_unitario"));
-						repuesto.setCuitProveedor(rs.getInt("cuit"));
+						repuesto.getProveedor().setID(rs.getInt("cuit"));
 						repuesto.setStock(rs.getInt("stock"));
 						repuesto.setPuntoPedido(rs.getInt("punto_pedido"));
 						repuestos.add(repuesto);
@@ -92,11 +92,11 @@ public class DataRepuesto
 				rs= pst.executeQuery();
 				if(rs!=null && rs.next())  
 				{
-					    repuesto.setIDRepuesto(rs.getInt("id_repuesto"));
+					    repuesto.setID(rs.getInt("id_repuesto"));
 						repuesto.setDescripcion(rs.getString("descripcion"));
-						repuesto.setIDTipoRepuesto(rs.getInt("id_tipo_repuesto"));
+						repuesto.getTipoRepuesto().setID(rs.getInt("id_tipo_repuesto"));
 						repuesto.setPrecioUnitario(rs.getFloat("precio_unitario"));
-						repuesto.setCuitProveedor(rs.getInt("cuit"));
+						repuesto.getProveedor().setID(rs.getInt("cuit"));
 						repuesto.setStock(rs.getInt("stock"));
 						repuesto.setPuntoPedido(rs.getInt("punto_pedido"));
 						
@@ -176,9 +176,9 @@ public class DataRepuesto
 				stmt.setInt(2, repuesto.getStock());
 				stmt.setInt(3, repuesto.getPuntoPedido());
 				stmt.setFloat(4, repuesto.getPrecioUnitario());
-				stmt.setInt(5, repuesto.getIDTipoRepuesto());
-				stmt.setInt(6, repuesto.getCuitProveedor());
-				stmt.setInt(7, repuesto.getIDRepuesto());
+				stmt.setInt(5,(int) repuesto.getTipoRepuesto().getID());
+				stmt.setInt(6,(int) repuesto.getProveedor().getID());
+				stmt.setInt(7,(int) repuesto.getID());
 				stmt.execute();
 			
 			}
@@ -212,14 +212,14 @@ public class DataRepuesto
 				stmt.setInt(2, repuesto.getStock());
 				stmt.setInt(3, repuesto.getPuntoPedido());
 				stmt.setFloat(4, repuesto.getPrecioUnitario());
-				stmt.setInt(5, repuesto.getIDTipoRepuesto());
-				stmt.setInt(6, repuesto.getCuitProveedor());
+				stmt.setInt(5, (int) repuesto.getTipoRepuesto().getID());
+				stmt.setInt(6, (int) repuesto.getProveedor().getID());
 				stmt.executeUpdate();
 				
 				keyResultSet=stmt.getGeneratedKeys();
 	            if(keyResultSet!=null && keyResultSet.next())
 	            {
-	                repuesto.setIDRepuesto(keyResultSet.getInt(1));
+	                repuesto.setID(keyResultSet.getInt(1));
 	            }
 		        }
 			
@@ -248,7 +248,7 @@ public class DataRepuesto
 			
 			{
 			case Deleted:
-				this.Delete(repuesto.getID());
+				this.Delete((int)repuesto.getID());
 			break;
 			
 			case New:

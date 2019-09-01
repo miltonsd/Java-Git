@@ -1,24 +1,45 @@
 package entities;
 
-public class TipoRepuesto 
+import entities.Entity.States;
+
+public class TipoRepuesto implements Entity
 {
-	private int _idtiporepuesto;
-	private String _descripcion;
+	private int idtiporepuesto;
+	private String descripcion;
 	
-	public int getIDTipoRepuesto() {
-		return _idtiporepuesto;
+	public Object getID()
+	{
+		return this.idtiporepuesto;
 	}
-	public void setIDTipoRepuesto(int idtiporepuesto) {
-		this._idtiporepuesto = idtiporepuesto;
+	public void setID(Object idtiporepuesto)
+	{
+		if(idtiporepuesto.getClass() == Integer.class)
+	    {
+			this.idtiporepuesto=(Integer) idtiporepuesto;
+	    }
+		else
+		{	
+		new Exception("El ID agregado no pertenece al tipo valido para la clase");	
+	    }
+		
 	}
 	
 	public String getDescripcion() {
-		return _descripcion;
+		return descripcion;
 	}
 	public void setIDUsuario(String descripcion) {
-		this._descripcion = descripcion;
+		this.descripcion = descripcion;
 	}
 	
+	private States state;
+	public States getState() 
+    {
+		return this.state;
+    }
+	public  void setState(States state) 
+    {
+		this.state = state;
+    }
 	
 
 }

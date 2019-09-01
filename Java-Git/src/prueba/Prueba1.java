@@ -1,5 +1,6 @@
 package prueba;
 import entities.Entity.States;
+import entities.Rol;
 import entities.Usuario;
 import data.DataUsuario;
 import java.util.Scanner;
@@ -39,17 +40,21 @@ public class Prueba1
 			System.out.println("usuario agregado a la bdd");
 			System.out.printf("id " + usu.getID() +"dni" + usu.getDni());
 			
+			Rol rol = new entities.Rol();
+			rol.setID(1);
+			usu.setRol(rol);
 			usu.setNombre("aaaaaa");
-			usu.setIDUsuario(1);
-			usu.setApellido("ale");
+			usu.setID(3);
+			usu.setApellido("aleASD");
 			usu.setUser("a");
 			usu.setPassword("ale");
 			usu.setDni(3950232);
 			usu.setEmail("al");
 			usu.setTel(44444);
-			usu.setRol(1);
+			
+			
 			usu.setHabilitado(true);
-			usu.setState(entities.Entity.States.Modified);
+			usu.setState(entities.Entity.States.Deleted);
 			du.Save(usu);
 			System.out.println("usuario agregado a la bdd");
 			

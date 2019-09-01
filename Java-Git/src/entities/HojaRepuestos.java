@@ -1,52 +1,73 @@
 	package entities;
 
+import entities.Entity.States;
+
 public class HojaRepuestos 
 {
 	
-	private int _idrepuesto;
-	private int _idhoja;
-	private int _cantidad;
-	private float _preciototal;
+	private Repuesto repuesto;
+	private HojaDeParte hoja;
+	private int cantidad;
+	private float preciototal;
+	private States state;
 	
+
+	public States getState() 
+    {
+		return this.state;
+    }
+
+	public  void setState(States state) 
+    {
+		this.state = state;
+    }
+
 	
-	
-	public int getIDRepuesto()
+	public Repuesto getRepuesto() 
 	{
-		return _idrepuesto;
+		return this.repuesto;
+	}
+	public void setRepuesto(Repuesto repuesto) 
+	{
+		this.repuesto=repuesto;
+	}
+	public HojaDeParte getHoja()
+	{
+		return this.hoja;
 		
 	}
-	public void setIDRepuesto(int idrepuesto)
+	public void setIDHoja(HojaDeParte hoja)
 	{
-		_idrepuesto=idrepuesto;
-	}
-	public int getIDHoja()
-	{
-		return _idhoja;
-		
-	}
-	public void setIDHoja(int idhoja)
-	{
-		_idhoja=idhoja;
+		this.hoja=hoja;
 	}
 	public int getCantidad()
 	{
-		return _cantidad;
+		return this.cantidad;
 		
 	}
 	public void setCantidad(int cantidad)
 	{
-		_cantidad=cantidad;
+		this.cantidad=cantidad;
 	}
 	
 	//cant * precio unitario
+	
 	public float getPrecioTotal()
-	{
-		return _preciototal;
+	{   
+		return this.preciototal;
 		
 	}
 	public void setPrecioTotal(float preciototal)
 	{
-		_preciototal=preciototal;
+		this.preciototal=preciototal;
+	}
+	
+	public float calcularPrecioTotal()
+	{
+		
+		float ptotal=0;
+		
+		return ptotal = this.getRepuesto().getPrecioUnitario() * this.getCantidad();
 	}
 	
 	

@@ -1,47 +1,91 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import entities.Entity.States;
 
 //import java.util.ArrayList;
 
-public class Factura extends Entity
+public class Factura implements Entity
 {
-	private int _idfactura;
-	private Date _fechaemision;
-	private float _importetotal;
-	private int _idusuario;
-	//private ArrayList<HojaDeParte> _hoja;
-	
-	
-	public int getIDFactura() {
-		return _idfactura;
-	}
-	public void setIDFactura(int id_factura) {
-		this._idfactura = id_factura;
-	}
-	public int getIDUsuario() {
-		return _idusuario;
-	}
-	public void setIDUsuario( int idusuario ) 
+	private int idfactura;
+	private Date fechaemision;
+	private float importetotal;
+	private Usuario usuario;
+	private ArrayList<HojaDeParte> hojas;
+	private States state;
+	public States getState() 
+    {
+		return this.state;
+    }
+	public  void setState(States state) 
+    {
+		this.state = state;
+    }
+	//Primary Key
+	public Object getID()
 	{
-		this._idusuario = idusuario;
+		return this.idfactura;
 	}
+	public void setID(Object idfactura)
+	{
+		if(idfactura.getClass() == Integer.class)
+	    {
+			this.idfactura=(Integer) idfactura;
+	    }
+		else
+		{	
+		new Exception("El ID agregado no pertenece al tipo valido para la clase");	
+	    }
+		
+	}
+	//Atributos
 	
 	public Date getFechaEmision() {
-		return _fechaemision;
+		return fechaemision;
 	}
 	public void setFecha_emision(Date fecha_emision) {
-		this._fechaemision = fecha_emision;
+		this.fechaemision = fecha_emision;
 	}
 	
 	public double getImporteTotal() {
-		return _importetotal;
+		return importetotal;
 	}
 	public void setImporteTotal(float importe_total) {
-		this._importetotal = importe_total;
+		this.importetotal = importe_total;
 	}
 	
-	/* @Override
+	//Objetos asociados
+	
+	public Usuario getUsuario() 
+	{
+		return usuario;
+	}
+	public void setUsuario( Usuario usuario ) 
+	{
+		this.usuario = usuario;
+	}
+
+	public ArrayList<HojaDeParte> getHojas()
+    {return this.hojas;}	
+
+	public void setHojas(ArrayList<HojaDeParte> hojas)
+	{
+		this.hojas=hojas;
+	}
+	
+	public float calcularImporteTotal() 
+	{ float importe = 0;
+		for (entities.HojaDeParte hoja : this.hojas)
+		{
+			importe+=hoja.getCostoManoDeObra();
+
+		}
+		return importe;
+	}
+	
+    /*  @Override
 	 public String toString() 
 	{
 		this.importe_total=0;
@@ -54,15 +98,7 @@ public class Factura extends Entity
 				"\n\nCliente: "+cliente+
 				"\nRepuesto - Precio Unit - Cantidad - Subtotal\n";
 		
-		for(Repuesto r: this.getHoja().repuestos.keySet()) {
-			s+=r.getDescripcion()+
-					" - $"+r.getPrecio_unitario()+
-					" - "+this.getHoja().repuestos.get(r)+
-					" - $"+(r.getPrecio_unitario()*this.getHoja().repuestos.get(r))+
-					"\n";
-			
-			this.importe_total  +=  r.getPrecio_unitario() * this.getHoja().repuestos.get(r);
-		}
+		
 		return s+"\nTotal: $"+this.importe_total+
 				"\nMecanico: "+this.getHoja().getMecanico().getApellido()+
 				", "+this.getHoja().getMecanico().getNombre();

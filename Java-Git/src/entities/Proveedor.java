@@ -1,38 +1,63 @@
 package entities;
 
-public class Proveedor extends Entity 
+import entities.Entity.States;
+
+public class Proveedor implements Entity 
 {
-	private int _idcuit;
-	private String _razon_social;
+	private int idcuit;
+	private String razon_social;
 	private int tel;
 	private String direccion;
 	private String email;
-	
-	public int getIDCuit() {
-		return _idcuit;
-	}
-	public void setIDCuit(int cuit) {
-		this._idcuit = cuit;
-	}
-	public String getRazon_social() 
+	private States state;
+	public States getState() 
+    {
+		return this.state;
+    }
+	public  void setState(States state) 
+    {
+		this.state = state;
+    }
+	public Object getID()
 	{
-		return _razon_social;
-		}
-	public void setRazon_social(String razon_social) {
-		this._razon_social = razon_social;
+		return this.idcuit;
 	}
+	public void setID(Object idcuit)
+	{
+		if(idcuit.getClass() == Integer.class)
+	    {
+			this.idcuit=(Integer) idcuit;
+	    }
+		else
+		{	
+		new Exception("El ID agregado no pertenece al tipo valido para la clase");	
+	    }
+		
+	}
+	
+	
+	public String getRazonSocial() 
+	{
+		return razon_social;
+		}
+	public void setRazonSocial(String razon_social) {
+		this.razon_social = razon_social;
+	}
+	
 	public int getTel() {
 		return tel;
 	}
 	public void setTel(int tel) {
 		this.tel = tel;
 	}
+	
 	public String getDireccion() {
 		return direccion;
 	}
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+	
 	public String getEmail() {
 		return email;
 	}

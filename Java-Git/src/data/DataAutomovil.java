@@ -27,11 +27,11 @@ public class DataAutomovil
 				while(rs.next()) 
 			   {
 					entities.Automovil auto = new Automovil();
-					auto.setIDCliente(rs.getInt("id_cliente"));
+					auto.getCliente().setID(rs.getInt("id_cliente"));
 					auto.setColor(rs.getString("color"));
 					auto.setMarca(rs.getString("marca"));
 					auto.setModelo(rs.getString("modelo"));
-					auto.setPatente(rs.getString("id_patente"));
+					auto.setID(rs.getString("id_patente"));
 					
 					
 					autos.add(auto);
@@ -94,11 +94,11 @@ public class DataAutomovil
 			if(rs!=null && rs.next()) 
 			{
 				
-					auto.setIDCliente(rs.getInt("id_usuario"));
+					auto.getCliente().setID(rs.getInt("id_usuario"));
 					auto.setColor(rs.getString("color"));
 					auto.setMarca(rs.getString("marca"));
 					auto.setModelo(rs.getString("modelo"));
-					auto.setPatente(rs.getString("id_patente"));
+					auto.setID(rs.getString("id_patente"));
 				
 		    }
 		}
@@ -173,11 +173,11 @@ public class DataAutomovil
 			stmt=FactoryConexion.getInstancia().getConn().
 					prepareStatement("UPDATE automoviles SET id_usuario = ? ,color = ? ,marca = ?,modelo= ? where id_patente = ?");
 			
-			stmt.setInt(1,auto.getIDCliente());
+			stmt.setInt(1,(int)auto.getCliente().getID());
 			stmt.setString(2,auto.getColor());
 			stmt.setString(3,auto.getMarca());
 			stmt.setString(4,auto.getModelo());
-			stmt.setString(5,auto.getPatente());
+			stmt.setString(5,(String)auto.getID());
 			
 			stmt.execute();
 
@@ -207,11 +207,11 @@ public class DataAutomovil
 							PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			
-			stmt.setInt(1,auto.getIDCliente());
+			stmt.setInt(1,(int)auto.getCliente().getID());
 			stmt.setString(2,auto.getColor());
 			stmt.setString(3,auto.getMarca());
 			stmt.setString(4,auto.getModelo());
-			stmt.setString(5,auto.getPatente());
+			stmt.setString(5,(String)auto.getID());
 			stmt.executeUpdate();
 			
 			
@@ -236,7 +236,7 @@ public class DataAutomovil
 		
 		{
 		case Deleted:
-			this.Delete(auto.getPatente());
+			this.Delete((String)auto.getID());
 		break;
 		
 		case New:

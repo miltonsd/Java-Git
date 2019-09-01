@@ -1,20 +1,50 @@
 package entities;
 
-public class Rol extends Entity
+import entities.Entity.States;
+
+public class Rol implements Entity
 {
-	private int _idrol;
-	private String _descripcion; // 1 - Cliente ; 2 - Mec�nico ; 3 - Administrador 
+	private int idrol;
+	private String descripcion; // 1 - Cliente ; 2 - Mec�nico ; 3 - Administrador 
+	private States state;
+	public States getState() 
+    {
+		return this.state;
+    }
+	public  void setState(States state) 
+    {
+		this.state = state;
+    }
+	public Object getID()
+	{
+		return (int) this.idrol;
+	}
+	public void setID(Object idrol)
+	{
+		if(idrol.getClass() == Integer.class)
+	    {
+			this.idrol=(Integer) idrol;
+			
+	    }
+		else
+		{	
+		new Exception("El ID agregado no pertenece al tipo valido para la clase");	
+	    }
+		
+	}
 	
-	public int getIDRol() {
-		return _idrol;
-	}
-	public void setIDRol(int cod_rol) {
-		this._idrol = cod_rol;
-	}
 	public String getDescripcion() {
-		return _descripcion;
+		return descripcion;
 	}
-	public void setDescripcion(String descripcion) {
-		this._descripcion = descripcion;
+	public void setDescripcion(String descripcion) 
+	{
+		this.descripcion = descripcion;
+	}
+	
+	public enum Roles
+	{
+		Cliente,
+		Mecanico,
+		Admin,
 	}
 }

@@ -1,76 +1,103 @@
 package entities;
 
-public class Usuario extends Entity
+import entities.Entity.States;
+
+public class Usuario implements Entity
 {
-	private int _idusuario;
-	private String _nombre;
-	private String _apellido;
-	private int _dni;
-	private String _email;
-	private int _tel;
-	private String _user;
-	private String _password;
-	private int _rol;
-	private Boolean _habilitado;
+	private int idusuario;
+	private String nombre;
+	private String apellido;
+	private int dni;
+	private String email;
+	private int tel;
+	private String user;
+	private String password;
+	private Rol rol;
+	private Boolean habilitado;
+	private States state;
 	
-	public int getIDUsuario() {
-		return _idusuario;
+	public Object getID()
+	{
+		return (int) this.idusuario;
 	}
-	public void setIDUsuario(int id_usuario) {
-		this._idusuario = id_usuario;
+	public void setID(Object idusuario)
+	{
+		if(idusuario.getClass() == Integer.class)
+	    {
+			this.idusuario=(Integer) idusuario;
+	    }
+		else
+		{	
+		new Exception("El ID agregado no pertenece al tipo valido para la clase");	
+	    }
+		
 	}
 	public String getNombre() {
-		return _nombre;
+		return nombre;
 	}
 	public void setNombre(String nombre) {
-		this._nombre = nombre;
+		this.nombre = nombre;
 	}
 	public String getApellido() {
-		return _apellido;
+		return apellido;
 	}
 	public void setApellido(String apellido) {
-		this._apellido = apellido;
+		this.apellido = apellido;
 	}
 	public int getDni() {
-		return _dni;
+		return dni;
 	}
 	public void setDni(int dni) {
-		this._dni = dni;
+		this.dni = dni;
 	}
 	public String getEmail() {
-		return _email;
+		return email;
 	}
 	public void setEmail(String email) {
-		this._email = email;
+		this.email = email;
 	}
 	public int getTel() {
-		return _tel;
+		return tel;
 	}
 	public void setTel(int tel) {
-		this._tel = tel;
+		this.tel = tel;
 	}
 	public String getUser() {
-		return _user;
+		return user;
 	}
 	public void setUser(String user) {
-		this._user = user;
+		this.user = user;
 	}
 	public String getPassword() {
-		return _password;
+		return password;
 	}
 	public void setPassword(String password) {
-		this._password = password;
+		this.password = password;
 	}
-	public int getRol() {
-		return _rol;
-	}
-	public void setRol(int idrol) {
-		this._rol = idrol;
-	}
+	
 	public Boolean getHabilitado() {
-		return _habilitado;
+		return habilitado;
 	}
 	public void setHabilitado(Boolean habilitado) {
-		this._habilitado = habilitado;
+		this.habilitado = habilitado;
 	}
+	
+	public Rol getRol() 
+	{
+		return this.rol;
+	}
+	public void setRol(Rol rol)
+	{
+		this.rol=rol;
+	}
+	
+	public States getState() 
+    {
+		return this.state;
+    }
+	public  void setState(States state) 
+    {
+		this.state = state;
+    }
+	
 }

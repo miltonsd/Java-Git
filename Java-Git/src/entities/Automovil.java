@@ -1,44 +1,68 @@
 package entities;
 
-public class Automovil extends Entity
+public class Automovil implements Entity
 {   
   
-	private String _idpatente; // AB123CD
-	private String _marca;
-	private String _modelo;
-	private String _color;
-	private int _idusuario;
-
-	public String getPatente() {
-		return _idpatente;
-	}
+	private String idpatente; // AB123CD
+	private String marca;
+	private String modelo;
+	private String color;
+	private Usuario usuario;
+	private States state;
 	
-	public void setPatente(String patente) {
-		this._idpatente = patente;
-		
-	}
+
 	public String getMarca() {
-		return _marca;
+		return marca;
 	}
 	public void setMarca(String marca) {
-		this._marca = marca;
+		this.marca = marca;
 	}
 	public String getModelo() {
-		return _modelo;
+		return modelo;
 	}
 	public void setModelo(String modelo) {
-		this._modelo = modelo;
+		this.modelo = modelo;
 	}
 	public String getColor() {
-		return _color;
+		return color;
 	}
 	public void setColor(String color) {
-		this._color = color;
+		this.color = color;
 	}
-	public int getIDCliente() {
-		return _idusuario;
+	public Usuario getCliente() {
+		return usuario;
 	}
-	public void setIDCliente(int idcliente) {
-		this._idusuario = idcliente;
+	public void setCliente(Usuario cliente) {
+		this.usuario = cliente;
 	}
+	
+	public  States getState() 
+    {
+	return this.state;
+		
+	}
+	public void setState(States state) 
+    {  
+	 this.state=state;
+	}
+
+	public Object getID()
+	{
+		return this.idpatente;
+	}
+	public void setID(Object idpatente)
+	{
+		if(idpatente.getClass() == String.class)
+	    {
+			this.idpatente=(String) idpatente;
+	    }
+		else
+		{	
+		new Exception("El ID agregado no pertenece al tipo valido para la clase");	
+	    }
+		
+	}
+
+
 }
+

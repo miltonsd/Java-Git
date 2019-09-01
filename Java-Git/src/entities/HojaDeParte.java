@@ -1,51 +1,84 @@
 package entities;
 
+import java.util.ArrayList;
+
 //import java.util.HashMap;
 
-public class HojaDeParte extends Entity
+public class HojaDeParte implements Entity
 {
-	private int _idhoja;
-	private int _idmecanico;
-	private int _idfactura;
-	private String _idpatente;
-	private float _costomanodeobra;
-	
+	private int idhoja;
+	private Usuario mecanico;
+	private Factura factura;
+	private Automovil automovil;
+	private ArrayList<HojaRepuestos> hojarepuestos;
+	private float costomanodeobra;
+	private States state;
+	public States getState() 
+    {
+		return this.state;
+    }
+	public  void setState(States state) 
+    {
+		this.state = state;
+    }
 	
 	//HashMap<Repuesto, Integer> repuestos = new HashMap<Repuesto, Integer>();
+	public Object getID()
+	{
+		return this.idhoja;
+	}
+	public void setID(Object idhoja)
+	{
+		if(idhoja.getClass() == Integer.class)
+	    {
+			this.idhoja=(Integer) idhoja;
+	    }
+		else
+		{	
+		new Exception("El ID agregado no pertenece al tipo valido para la clase");	
+	    }
+		
+	}
+
+	public Factura getFactura()
+	{
+		return factura;
+	}
+	public void setFactura(Factura factura)
+	{
+		this.factura =factura;
+	}
+
 	
-
-	public int getIDFactura()
+	public Usuario getMecanico() 
 	{
-		return _idfactura;
+		return mecanico;
 	}
-	public void setIDFactura(int _idfactura)
-	{
-		this._idfactura =_idfactura;
+	public void setMecanico(Usuario mecanico) {
+		this.mecanico = mecanico;
 	}
-
-	public int getIDHoja() {
-		return _idhoja;
-		}
-	public void setIDHoja(int id_hoja) {
-		this._idhoja = id_hoja;
+	
+	public Automovil getAutomovil() {
+		return automovil;
 	}
-	public int getIDMecanico() {
-		return _idmecanico;
-	}
-	public void setMecanico(int mecanico) {
-		this._idmecanico = mecanico;
-	}
-	public String getIDPatente() {
-		return _idpatente;
-	}
-	public void setIDPatente(String idpatente) {
-		this._idpatente = idpatente;
+	public void setAutomovil(Automovil automovil) {
+		this.automovil = automovil;
 	}
 	public float getCostoManoDeObra() {
-		return _costomanodeobra;
+		return costomanodeobra;
 	}
 	public void setCostoManoDeObra(float costomanodeobra) {
-		this._costomanodeobra = costomanodeobra;
+		this.costomanodeobra = costomanodeobra;
+	}
+	
+	public float calcularPrecioTotal() 
+	{  float preciototal=getCostoManoDeObra();
+		for(entities.HojaRepuestos hojarepuesto : this.hojarepuestos) 
+		{
+			preciototal+=hojarepuesto.calcularPrecioTotal();
+			
+		}
+		return preciototal;
 	}
 /*	public HashMap<Repuesto, Integer> getRepuestos() {
 		return repuestos;

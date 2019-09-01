@@ -1,47 +1,34 @@
 package entities;
 
-public class Entity 
-{   //constructor
-	public Entity()
-	{
-		this.setState(States.New);
-		
-	}
-
-	//variables
-	private States _State;
-	private int _ID;
+public interface Entity 
+{   
 	
-	
-	//propiedades
-	public States getState() 
-{
-		return _State;
-	}
-	public void setState(States State) 
-{
-		this._State=State;
-	}
-	public int getID()
- {
-		return this._ID;
-	}
-    public void setID(int id) 
-	{
-		this._ID=id;
-	}
-	public enum States 
+	//Enum Estados
+	public static enum States 
 	{
 		Deleted,
 		New,
 		Modified,
 		Unmodified,
-		
-		
-		
-		
-		
+	
 	}
 	
+	
+	//Metodos
+	public default  States getState() 
+    {return null;}
+	public default  void setState(States state) 
+    {
+		
+    }
+	
+	public default  Object getID() 
+	{
+     return null;
+	}
+	public default void setID(Object id)
+	{
+		
+	}
 
 }
