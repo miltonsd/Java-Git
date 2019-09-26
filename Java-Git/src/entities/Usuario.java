@@ -100,4 +100,12 @@ public class Usuario implements Entity
 		this.state = state;
     }
 	
+	@Override
+	public String toString() {
+		
+		return "Email:   "+ getEmail();
+	}
+	
+	
+	
 }

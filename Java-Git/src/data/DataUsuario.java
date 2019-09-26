@@ -1,12 +1,9 @@
 package data;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
-
-import entities.Usuario;
+import entities.*;
 
 public class DataUsuario 
 {
@@ -17,18 +14,21 @@ public class DataUsuario
 				ArrayList<entities.Usuario> Usuarios = new ArrayList<>() ;
 				PreparedStatement pst=null;
 				ResultSet rs=null;
+				Statement stmt=null;
 				
 				try 
 				{
+					
 				    pst= FactoryConexion.getInstancia().getConn().prepareStatement
 							("select * from usuarios ");
-		           
 					rs= pst.executeQuery();
 					if(rs!=null) 
 					{
 						while(rs.next()) 
 					   {
 							entities.Usuario Usuario = new Usuario();
+							Usuario.setRol(new Rol());
+							
 							Usuario.setID(rs.getInt("id_usuario"));
 							Usuario.setDni(rs.getInt("dni"));
 							Usuario.setEmail(rs.getString("email"));
@@ -92,12 +92,12 @@ public class DataUsuario
 				try 
 				{
 				    pst= FactoryConexion.getInstancia().getConn().prepareStatement
-							("select * from repuestos where id_repuesto = ?");
+							("select * from usuarios where id_usuario = ?");
 		            pst.setInt(1, idusuario);
 					rs= pst.executeQuery();
 					if(rs!=null && rs.next()) 
 					{
-						
+						    Usuario.setRol(new Rol());
 							Usuario.setID(rs.getInt("id_usuario"));
 							Usuario.setDni(rs.getInt("dni"));
 							Usuario.setEmail(rs.getString("email"));
@@ -146,8 +146,130 @@ public class DataUsuario
 					
 			}
 
+			// Traer uno por email string
+						@SuppressWarnings("finally")
+						public entities.Usuario getOnePorEmail(String email)
+						{
+							
+							entities.Usuario Usuario = new Usuario();
+							PreparedStatement pst=null;
+							ResultSet rs=null;
+							try 
+							{
+							    pst= FactoryConexion.getInstancia().getConn().prepareStatement
+										("select * from usuarios where email = ?");
+					            pst.setString(1, email);
+								rs= pst.executeQuery();
+								if(rs!=null && rs.next()) 
+								{						
+									Usuario.setRol(new Rol());
+									Usuario.setID(rs.getInt("id_usuario"));
+									Usuario.setDni(rs.getInt("dni"));
+									Usuario.setEmail(rs.getString("email"));
+									Usuario.setApellido(rs.getString("apellido"));
+									Usuario.setNombre(rs.getString("nombre"));
+									Usuario.setPassword(rs.getString("password"));
+									Usuario.setUser(rs.getString("user"));
+									Usuario.getRol().setID(rs.getInt("id_rol"));
+									Usuario.setTel(rs.getInt("tel"));
+									Usuario.setHabilitado(rs.getBoolean("habilitado"));								
+							    }
+							}
+							
+							catch (SQLException e)
+							{
+							     e.printStackTrace();
+							}
+									
+							
+							finally 
+							{
+								
+								try 
+							   {
+								if(rs!=null) 
+								{
+									rs.close();
+								}
+								
+								if(pst!=null)
+								{
+									pst.close();
+								}
+								
+								FactoryConexion.getInstancia().releaseConn();
+								
+							     } 
+								catch (SQLException e) 
+							  {
+								e.printStackTrace();
+								
+							  }
+								
+								return Usuario;
+					    	}
+							
+								
+						}
+
 			//ABM
 			
+			//Traer parametro
+						@SuppressWarnings("finally")
+						public String getParametro()
+						{
+							
+							String par=null ;
+							PreparedStatement pst=null;
+							ResultSet rs=null;
+							try 
+							{
+							    pst= FactoryConexion.getInstancia().getConn().prepareStatement
+										("select * from parametro ");
+					          
+								rs= pst.executeQuery();
+								if(rs!=null && rs.next()) 
+								{						
+									par=rs.getString("parametro"); 							
+							    }
+							}
+							
+							catch (SQLException e)
+							{
+							     e.printStackTrace();
+							}
+									
+							
+							finally 
+							{
+								
+								try 
+							   {
+								if(rs!=null) 
+								{
+									rs.close();
+								}
+								
+								if(pst!=null)
+								{
+									pst.close();
+								}
+								
+								FactoryConexion.getInstancia().releaseConn();
+								
+							     } 
+								catch (SQLException e) 
+							  {
+								e.printStackTrace();
+								
+							  }
+								
+								return par;
+					    	}
+							
+								
+						}
+						
 			public void Delete(int ID)
 			{ 
 			  PreparedStatement stmt= null;

@@ -74,7 +74,7 @@ public class DataHojaDeParte {
 
 			// Traer uno
 			@SuppressWarnings("finally")
-			public entities.HojaDeParte GetOne(int idrepuesto)
+			public entities.HojaDeParte GetOne(int idhoja)
 			{
 				entities.HojaDeParte hoja = new entities.HojaDeParte() ;
 				PreparedStatement pst=null;
@@ -82,8 +82,8 @@ public class DataHojaDeParte {
 				try 
 				{
 				    pst= FactoryConexion.getInstancia().getConn().prepareStatement
-							("select * from repuestos where id_repuesto = ?");
-		            pst.setInt(1, idrepuesto);
+							("select * from hojas_de_parte where id_hoja = ?");
+		            pst.setInt(1, idhoja);
 					rs= pst.executeQuery();
 					if(rs!=null && rs.next())  
 					{
@@ -196,7 +196,7 @@ public class DataHojaDeParte {
 				try {
 					stmt=FactoryConexion.getInstancia().getConn().
 							prepareStatement(
-									"insert into repuestos( costo_mano_de_obra, id_mecanico, id_factura, id_patente,id_hoja) values(?,?,?,?,?)",
+									"insert into hojas_de_parte( costo_mano_de_obra, id_mecanico, id_factura, id_patente,id_hoja) values(?,?,?,?,?)",
 									PreparedStatement.RETURN_GENERATED_KEYS
 									);
 					

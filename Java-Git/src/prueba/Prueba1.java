@@ -3,8 +3,16 @@ import entities.Entity.States;
 import entities.Rol;
 import entities.Usuario;
 import data.DataUsuario;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
+import business.BusinessUsuario;
+import java.security.NoSuchAlgorithmException;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
 public class Prueba1 
 {
 	private static final States New = null;
@@ -12,9 +20,45 @@ public class Prueba1
 	public static void main(String[] args) {
 		System.out.println("Mostrar todo");
 		DataUsuario du= new DataUsuario();
-		for(Usuario u: du.GetAll()) {
-			System.out.println(u);
-		}
+		ArrayList<entities.Usuario> Usuarios = du.GetAll();
+	    for(Usuario u : Usuarios) 
+	    {System.out.println(u.getEmail());
+	    	
+	    }
+		
+	    
+	    
+	    
+	    
+		//du.GetAll().forEach((u) -> System.out.println(u.getEmail()));
+		
+		System.out.println(du.GetOne(4).getEmail());
+		System.out.println(du.getOnePorEmail("ale@hotmail.com").getPassword());
+		BusinessUsuario bu = new BusinessUsuario();
+		
+		
+		
+		
+		if(du.getOnePorEmail("ale@hotmail.com").getPassword().equals("ale"))
+		{System.out.println("es true2");}
+		
+		String par = du.getParametro();
+		String sha256hexStr = DigestUtils.sha256Hex("admin@hotmail.com"+par+"1234"); 
+		System.out.println(sha256hexStr);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
         Scanner s=new Scanner(System.in);
 		
 		/*System.out.println("\nBusca una pesona? (S/N)");
