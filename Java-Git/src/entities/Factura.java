@@ -1,5 +1,6 @@
 package entities;
 
+import data.DataHojaDeParte;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -70,9 +71,10 @@ public class Factura implements Entity
 	public ArrayList<HojaDeParte> getHojas()
     {return this.hojas;}	
 
-	public void setHojas(ArrayList<HojaDeParte> hojas)
+	public void setHojas(ArrayList<HojaDeParte> hojasdeparte)
 	{
-		this.hojas=hojas;
+		
+		this.hojas=hojasdeparte;
 	}
 	
 	public float calcularImporteTotal() 

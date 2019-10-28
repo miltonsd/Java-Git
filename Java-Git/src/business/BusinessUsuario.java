@@ -18,6 +18,10 @@ public entities.Usuario getOne(int idusuario)
 {
 	return 	du.GetOne(idusuario);
 }
+public entities.Usuario getOnePorEmail(String email)
+{
+	return 	du.getOnePorEmail(email);
+}
 public ArrayList<entities.Usuario> getAll()
 {
 	return 	du.GetAll();
@@ -25,8 +29,7 @@ public ArrayList<entities.Usuario> getAll()
 
 public boolean verificarUsuario(Usuario usu) 
 {    
-	 par = du.getParametro();
-	 String sha256hexStr = DigestUtils.sha256Hex(usu.getEmail()+par+usu.getPassword());  
+	 String sha256hexStr = DigestUtils.sha256Hex(usu.getEmail()+du.getParametro()+usu.getPassword());  
 	 if(du.getOnePorEmail(usu.getEmail()).getPassword().equals(sha256hexStr))
 	{
 		 return true;

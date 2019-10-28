@@ -71,6 +71,72 @@ public class DataHojaDeParte {
 		    	}
 						
 			}
+			// Traer los de una factura
+						@SuppressWarnings("finally")
+						public ArrayList<entities.HojaDeParte> getAllFactura(int id_factura)
+						{
+							ArrayList<entities.HojaDeParte> hojas= new ArrayList<>() ;
+							PreparedStatement pst=null;
+							ResultSet rs=null;
+							
+							try 
+							{
+							    pst= FactoryConexion.getInstancia().getConn().prepareStatement
+										("select * from hojas_de_parte where id_factura = ?");
+							    pst.setInt(1, id_factura);
+					           
+								rs= pst.executeQuery();
+								if(rs!=null) 
+								{
+									while(rs.next()) 
+								   {
+										entities.HojaDeParte hoja = new HojaDeParte();
+										hoja.setID(rs.getInt("id_hoja"));
+										hoja.getFactura().setID(rs.getInt("id_factura"));
+										hoja.getAutomovil().setID(rs.getString("id_patente"));
+										hoja.getMecanico().setID(rs.getInt("id_mecanico"));
+										hoja.setCostoManoDeObra(rs.getFloat("costo_mano_de_obra"));
+										hojas.add(hoja);
+										
+									}
+									
+							    }
+							}
+							
+							catch (SQLException e)
+							{
+							     e.printStackTrace();
+							}
+									
+							
+							finally 
+							{
+								
+								try 
+							   {
+								if(rs!=null) 
+								{
+									rs.close();
+								}
+								
+								if(pst!=null)
+								{
+									pst.close();
+								}
+								
+								FactoryConexion.getInstancia().releaseConn();
+								
+							     } 
+								catch (SQLException e) 
+							  {
+								e.printStackTrace();
+								
+							  }
+								
+								return hojas;
+					    	}
+									
+						}
 
 			// Traer uno
 			@SuppressWarnings("finally")
@@ -132,6 +198,8 @@ public class DataHojaDeParte {
 		    	}
 					
 			}
+			
+			
 
 			//ABM
 			

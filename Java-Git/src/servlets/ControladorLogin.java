@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import business.*;
 
 import entities.Usuario;
@@ -40,14 +42,21 @@ public class ControladorLogin extends HttpServlet implements Servlet {
 		// TODO Auto-generated method stub
 		BusinessUsuario bu = new BusinessUsuario();
 		Usuario usu = new Usuario();
+		HttpSession session = request.getSession();
 		usu.setEmail(request.getParameter("Email"));
 		usu.setPassword(request.getParameter("Password"));
+		
 		if(bu.verificarUsuario(usu))
 		{
-			response.sendRedirect("index.html");
-		}else
-		{response.sendRedirect("signin.html");
-			
+			session.setAttribute("UsuarioId", bu.getOnePorEmail(usu.getEmail()).getID());
+			session.setAttribute("UsuarioNombre", bu.getOnePorEmail(usu.getEmail()).getNombre());
+			session.setAttribute("UsuarioRol", bu.getOnePorEmail(usu.getEmail()).getRol());
+			response.sendRedirect("menu.jsp");
+		}
+		else
+		{
+		
+			response.sendRedirect("login.jsp");
 		}
 	}
 

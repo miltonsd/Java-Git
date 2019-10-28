@@ -33,7 +33,7 @@ public class FactoryConexion {
 	public Connection getConn() {
 		try {
 				if (conn == null || conn.isClosed()) {
-					conn=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db, user, pass);
+					conn=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db+"?serverTimezone=UTC", user, pass);
 					conectados=0;
 				}
 		} catch (SQLException e) {

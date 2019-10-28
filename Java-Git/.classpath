@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="C:/Users/Aleja/Desktop/dependencias/commons-codec-1.13-bin/commons-codec-1.13/commons-codec-1.13-tests.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Aleja/Desktop/dependencias/commons-codec-1.13-bin/commons-codec-1.13/commons-codec-1.13-test-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Aleja/Desktop/dependencias/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48-bin.jar"/>
+	<classpathentry kind="lib" path="lib"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
