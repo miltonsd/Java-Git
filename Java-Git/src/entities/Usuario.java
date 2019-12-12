@@ -103,7 +103,7 @@ public class Usuario implements Entity
 	@Override
 	public String toString() {
 		
-		return "Email:   "+ getEmail();
+		return this.getApellido()+", " +this.getNombre();
 	}
 	
 	

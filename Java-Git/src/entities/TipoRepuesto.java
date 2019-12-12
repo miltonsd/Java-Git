@@ -27,9 +27,10 @@ public class TipoRepuesto implements Entity
 	public String getDescripcion() {
 		return descripcion;
 	}
-	public void setIDUsuario(String descripcion) {
-		this.descripcion = descripcion;
+	public void setDescripcion(String descripcion) {
+		this.descripcion =  descripcion;
 	}
+	
 	
 	private States state;
 	public States getState() 

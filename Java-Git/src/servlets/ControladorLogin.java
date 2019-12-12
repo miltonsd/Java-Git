@@ -15,15 +15,18 @@ import entities.Usuario;
 /**
  * Servlet implementation class ControladorLogin
  */
-@WebServlet("/ControladorLogin")
+@WebServlet({"/login/*","/LOGIN/*","/Login/*"})
 public class ControladorLogin extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
-       
+	private BusinessUsuario negocioUsuario;
+	private Usuario usu;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ControladorLogin() {
         super();
+        BusinessUsuario negocioUsuario = new BusinessUsuario();
+    	Usuario usu = new Usuario();
         // TODO Auto-generated constructor stub
     }
 
@@ -40,22 +43,20 @@ public class ControladorLogin extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		BusinessUsuario bu = new BusinessUsuario();
-		Usuario usu = new Usuario();
+	
 		HttpSession session = request.getSession();
 		usu.setEmail(request.getParameter("Email"));
 		usu.setPassword(request.getParameter("Password"));
 		
-		if(bu.verificarUsuario(usu))
+		if(negocioUsuario.verificarUsuario(usu))
 		{
-			session.setAttribute("UsuarioId", bu.getOnePorEmail(usu.getEmail()).getID());
-			session.setAttribute("UsuarioNombre", bu.getOnePorEmail(usu.getEmail()).getNombre());
-			session.setAttribute("UsuarioRol", bu.getOnePorEmail(usu.getEmail()).getRol());
-			response.sendRedirect("menu.jsp");
+			session.setAttribute("UsuarioId", negocioUsuario.getOnePorEmail(usu.getEmail()).getID());
+			session.setAttribute("UsuarioNombre", negocioUsuario.getOnePorEmail(usu.getEmail()).getNombre());
+			session.setAttribute("UsuarioRol", negocioUsuario.getOnePorEmail(usu.getEmail()).getRol());
+			response.sendRedirect("/menu");
 		}
 		else
 		{
-		
 			response.sendRedirect("login.jsp");
 		}
 	}

@@ -1,6 +1,8 @@
 package data;
 
 import entities.*;
+
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -146,7 +148,7 @@ public class DataFactura {
 		try 
 		{				
 			stmt=FactoryConexion.getInstancia().getConn().
-					prepareStatement("delete from hojas_de_parte where id_hoja=?");
+					prepareStatement("delete from facturas where id_factura=?");
 			stmt.setInt(1, ID);
 			stmt.execute();				
 		}
@@ -162,20 +164,19 @@ public class DataFactura {
 		
 		
 	}
-	public void Update(entities.HojaDeParte hoja)
+	public void Update(entities.Factura factura)
 	{
 		PreparedStatement stmt= null;
 		
 		try 
 		{				
 			stmt=FactoryConexion.getInstancia().getConn().
-					prepareStatement("UPDATE hojas_de_parte SET costo_mano_de_obra=?,id_mecanico=?,id_factura=?,id_patente=? where id_hoja = ?");
+					prepareStatement("UPDATE facturas SET fecha_emision=?,importe_total=?,id_usuario=? where id_factura = ?");
 			
-			stmt.setFloat(1, hoja.getCostoManoDeObra());
-			stmt.setInt(2, (int)hoja.getMecanico().getID());
-			stmt.setInt(3, (int)hoja.getFactura().getID());
-			stmt.setString(4,(String) hoja.getAutomovil().getID());
-			stmt.setInt(5, (int)hoja.getID());
+			stmt.setDate(1, (Date) factura.getFechaEmision());
+			stmt.setFloat(2,(float) factura.getImporteTotal());
+			stmt.setInt(3, (int)factura.getUsuario().getID());
+			stmt.setInt(4, (int)factura.getID());
 
 			stmt.execute();
 		
@@ -194,29 +195,28 @@ public class DataFactura {
 		
 		
 	}
-	public void Insert(entities.HojaDeParte hoja)
+	public void Insert(entities.Factura factura)
 	{  
 	   PreparedStatement stmt= null;
 	   ResultSet keyResultSet=null;
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().
 					prepareStatement(
-							"insert into hojas_de_parte( costo_mano_de_obra, id_mecanico, id_factura, id_patente,id_hoja) values(?,?,?,?,?)",
+							"insert into facturas(fecha_emision,importe_total,id_usuario) values (?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			
 			
-			stmt.setFloat(1, hoja.getCostoManoDeObra());
-			stmt.setInt(2, (int) hoja.getMecanico().getID());
-			stmt.setInt(3, (int) hoja.getFactura().getID());
-			stmt.setString(4,(String) hoja.getAutomovil().getID());
-			stmt.setInt(5, (int) hoja.getID());
+			stmt.setDate(1, (Date) factura.getFechaEmision());
+			stmt.setFloat(2,(float) factura.getImporteTotal());
+			stmt.setInt(3, (int)factura.getUsuario().getID());
+
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
             if(keyResultSet!=null && keyResultSet.next())
             {
-               hoja.setID(keyResultSet.getInt(1));
+              factura.setID(keyResultSet.getInt(1));
             }
 	        }
 		
@@ -238,25 +238,25 @@ public class DataFactura {
 		
 		
 	}
-	public void Save(entities.HojaDeParte hoja) 
+	public void Save(entities.Factura factura) 
 	{
 		
-		switch(hoja.getState())
+		switch(factura.getState())
 		
 		{
 		case Deleted:
-			this.Delete((int) hoja.getID());
+			this.Delete((int)factura.getID());
 		break;
 		
 		case New:
-			this.Insert(hoja);
+			this.Insert(factura);
 		break;
 		
 		case Modified:
-			this.Update(hoja);
+			this.Update(factura);
 			break;
 		default:
-		   hoja.setState(entities.Entity.States.Unmodified);
+			factura.setState(entities.Entity.States.Unmodified);
 		   break;
 		}
 		}

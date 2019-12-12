@@ -21,15 +21,19 @@ import java.util.List;
 /**
  * Servlet implementation class ControladorFacturas
  */
-@WebServlet("/ControladorFacturas")
+@WebServlet({ "/listadofacturas/*", "/listafacturas/*", "/LISTAFACTURAS/*", "/lista-facturas/*", "/ListadoFacturas/*" })
 public class ControladorFacturas extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private DataFactura datosFactura;
+	private DataUsuario datosUsuario;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ControladorFacturas() {
         super();
+        datosFactura = new DataFactura();
+        datosUsuario = new DataUsuario();
+    	
         // TODO Auto-generated constructor stub
     }
 
@@ -38,18 +42,10 @@ public class ControladorFacturas extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		PrintWriter salida = response.getWriter();
-		response.setContentType("text/plain");
-		
-		DataFactura df = new DataFactura();
-		
-
-		//DataUsuario du = new DataUsuario();
-		//Usuario usu = du.getOnePorEmail("admin@hotmail.com");
-		request.setAttribute("listaFacturas",df.GetAll());
+		  
+		request.setAttribute("listaFacturas",datosFactura.GetAll());
 		RequestDispatcher miDispatcher = request.getRequestDispatcher("listafacturas.jsp"); 
-		miDispatcher.forward(request, response);
-		
+		request.getRequestDispatcher("listafacturas.jsp").forward(request, response);
 	}
 
 	/**
@@ -57,6 +53,31 @@ public class ControladorFacturas extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setAttribute("factura", datosFactura.GetOne( Integer.parseInt(request.getParameter("idFactura"))));
+		RequestDispatcher miDispatcher = request.getRequestDispatcher("factura.jsp"); 
+		if(request.getParameter("idFactura")!=null)
+		{switch(request.getParameter("modo")) 
+		{
+		case "display" :
+				request.setAttribute("modo", "display");
+				response.sendRedirect(request.getContextPath()+"/factura/display");
+		
+		case "edit":	
+				request.setAttribute("modo", "edit");
+				request.setAttribute("listaUsuarios", datosUsuario.GetAll());
+				response.sendRedirect(request.getContextPath()+"/factura/edit");
+		case "delete":	
+				request.setAttribute("modo", "delete");
+				response.sendRedirect(request.getContextPath()+"/factura/edit");
+		case "new":	
+				request.setAttribute("modo", "new");
+				request.getRequestDispatcher("factura.jsp").forward(request, response);	
+		default:
+			System.out.println("redirigir a página de error");
+			break;
+		}
+		}
+		
 		
 	}
 

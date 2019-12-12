@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import entities.Proveedor;
 import entities.Repuesto;
+import entities.TipoRepuesto;
 
 public class DataRepuesto
 {
@@ -20,7 +22,7 @@ public class DataRepuesto
 			try 
 			{
 			    pst= FactoryConexion.getInstancia().getConn().prepareStatement
-						("select * from repuestos ");
+						("SELECT * from repuestos " );
 	           
 				rs= pst.executeQuery();
 				if(rs!=null) 
@@ -28,13 +30,21 @@ public class DataRepuesto
 					while(rs.next()) 
 				   {
 						entities.Repuesto repuesto = new Repuesto();
+						entities.TipoRepuesto tr = new TipoRepuesto();
+						entities.Proveedor prove = new Proveedor();
+						repuesto.setProveedor(prove);
+						repuesto.getProveedor().setID(rs.getInt("cuit"));
+						
+						repuesto.setTipoRepuesto(tr);
+					
+						repuesto.getTipoRepuesto().setID(rs.getInt("id_tipo_repuesto"));
+					
 						repuesto.setID(rs.getInt("id_repuesto"));
 						repuesto.setDescripcion(rs.getString("descripcion"));
-						repuesto.getTipoRepuesto().setID(rs.getInt("id_tipo_repuesto"));
 						repuesto.setPrecioUnitario(rs.getFloat("precio_unitario"));
-						repuesto.getProveedor().setID(rs.getInt("cuit"));
 						repuesto.setStock(rs.getInt("stock"));
 						repuesto.setPuntoPedido(rs.getInt("punto_pedido"));
+						
 						repuestos.add(repuesto);
 						
 					}
@@ -91,7 +101,13 @@ public class DataRepuesto
 	            pst.setInt(1, idrepuesto);
 				rs= pst.executeQuery();
 				if(rs!=null && rs.next())  
+					
 				{
+						
+						entities.TipoRepuesto tr = new TipoRepuesto();
+						entities.Proveedor prove = new Proveedor();
+						repuesto.setProveedor(prove);
+						repuesto.setTipoRepuesto(tr);
 					    repuesto.setID(rs.getInt("id_repuesto"));
 						repuesto.setDescripcion(rs.getString("descripcion"));
 						repuesto.getTipoRepuesto().setID(rs.getInt("id_tipo_repuesto"));

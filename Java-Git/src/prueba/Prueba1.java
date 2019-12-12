@@ -1,10 +1,13 @@
 package prueba;
 import entities.Entity.States;
+import entities.Factura;
 import entities.Rol;
 import entities.Usuario;
+import data.DataFactura;
 import data.DataUsuario;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -26,9 +29,13 @@ public class Prueba1
 	    	
 	    }
 		
-	    
-	    
-	    
+	    DataFactura df = new DataFactura();
+	    List<entities.Factura> f = df.GetAll();
+	    for(Factura x : f)
+	    {
+	    	System.out.println(x.getImporteTotal());
+	    }
+	    	System.out.println(df.GetOne(1).getImporteTotal());
 	    
 		//du.GetAll().forEach((u) -> System.out.println(u.getEmail()));
 		
