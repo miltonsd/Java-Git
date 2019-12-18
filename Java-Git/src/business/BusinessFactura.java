@@ -15,7 +15,7 @@ public class BusinessFactura {
 	public ArrayList<entities.Factura> getAll()
 	{
 		DataFactura rep = new DataFactura();
-		return (ArrayList<Factura>) rep.GetAll();
+		return rep.GetAll();
 		
 	}
 	public void Delete(Factura rep)

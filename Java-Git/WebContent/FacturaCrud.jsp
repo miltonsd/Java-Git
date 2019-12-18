@@ -26,69 +26,82 @@
 <title>Factura</title>
 </head>
 <body>
+<c:if test="${modo =='edit'}">
+<div align="Left">
+<a href="menu?page=listahojasdeparte&idFactura=${idf} "><button type="Button"  class="btn btn-primary">Hojas de parte</button></a>
+</div>
+</c:if>
 <form action="factura" method="POST">
 <input id = "modo" name = "modo" type="hidden" value="${modo}" >	
 		<div class="row">
-			<div class="col">
+			<!-- Campo idFactura -->
+			<div class="col"> 
 				<div class="col-sm-10">
-      				Factura nro :<input type="text" class="form-control" name = "idFactura"  value="${factura.getID()}"  readonly>
+      				Factura nro :<input type="text" class="form-control" name = "idFactura"  value="${idf}"  readonly>
   				</div>
   			</div>
+  			
+  			<!-- Campo FechaEmision -->
   			<div class="col">
   				<c:if test ="${factura.getFechaEmision() != null}" > 
   					<div class="col-sm-10">
   						Fecha de emision :<input type="text" class="form-control" name = "fechaEmision"  value="${factura.getFechaEmision()}"  readonly>
   					</div>
   	  			</c:if>
+  	  			<c:if test ="${factura.getFechaEmision() == null}" > 
+  					<div class="col-sm-10">
+  						Fecha de emision :<input type="text" class="form-control" name = "fechaEmision"  value="Sin emitir"  readonly>
+  					</div>
+  	  			</c:if>
   	  	 	</div>
   	  	 </div>
   	  	 
-  	  	 <div class="row">
+  	  	 <!-- Campo ImporteTotal -->
+  	  <div class="row">
   	  	 	<div class="col">
-  	  			<c:if test ="${factura.getImporteTotal() != 0}" > 
+  	  			
   					<div class="col-sm-10">
-  						<c:if test ="${modo == 'display' or 'delete' or 'emitir'}" > 
   							Importe total :<input type="text" class="form-control"  name = "importeTotal" value="${factura.getImporteTotal()}"  readonly>
-  						</c:if>
   					</div>
-  	  			</c:if>
-  	  		</div>
+  	  		</div>		
+  		 <!-- Campo Usuario -->
+  			<c:if test ="${modo == 'emitir'}"> 
   	  		<div class="col">
-  	  			<c:if test ="${factura.getUsuario() != null}" >
   	  				<div class="col-sm-10">
-  	  					<c:if test ="${modo == 'display' or 'delete' or 'emitir'}" > 
-  							Usuario :<input type="text" class="form-control" name = "usuario"  value="${factura.getUsuario()}"  readonly>
-  						</c:if>
-  					</div>
-  			    </c:if>
-  			</div>
-  	 	</div>
-  	 
-  	  	<div class="row">
-  	  		<div class="col">
-  	  			<c:if test ="${factura.getUsuario().getDni() != null}" >
-  	  				<div class="col-sm-10">
-  	  					<c:if test ="${modo == 'display' or 'delete' or 'emitir'}"> 
-  							DNI :<input type="text" class="form-control" name = "dniUsuario"  value="${factura.getUsuario().getDni()}"  readonly>
-  						</c:if>
-  					</div>
-  	  			</c:if>		
+  	  					
+  							Cliente :<input type="text" class="form-control" name = "cliente"  value="${usuario.getDni()} - ${usuario.getApellido()}, ${usuario.getNombre()}"  readonly>
+  						
+  					</div>	
   	  		</div>
-  	  		<c:if test ="${modo == 'new' or modo == 'edit' or 'emitir'}"> 
-  	  			<div class="col" align="left">
-			     		Asignar usuario :<select name="usuarioIdLista" class="custom-select custom-select-lg mb-3">
-						<option selected value = "0"  >Usuarios</option>
+  	  		</c:if>
+  	  		<c:if test ="${modo == 'new' or modo == 'edit'}"> 
+  	  			<div class="col" align="left" >
+  	  				<div class="col-sm-10">	
+			     	Cliente :
+			     		<select name="usuariosLista" class="custom-select custom-select-lg mb-3">
+						<c:if test ="${modo == 'new'}"> 
+							<option selected value = "0" >Seleccionar cliente</option>
+						</c:if>
+						<c:if test ="${modo == 'edit'}"> 
+							<option selected value = "${usuario.getID()}" >${usuario.getDni()}-${usuario.getApellido()}, ${usuario.getNombre()}</option>
+						</c:if>
 						<c:forEach items="${listaUsuarios}" var="usu">
-							<option id = usuarioIDLista value="${usu.getID()}">${usu.getDni()}-${usu}</option>
+							<option id = usuarioIDLista value="${usu.getID()}">${usu.getDni()}-${usu.getApellido()}, ${usu.getNombre()}</option>
 						</c:forEach>
-					</select>
+						</select>
+					</div>
 				</div>
 			</c:if>
+			
 		</div>
+		
+
+		
 			<div align="center">
 				<button type="Submit" name = "btnConfirmar" id = "btnConfirmar" value ="${modo}" class="btn btn-primary">Confirmar</button>
-				<a href="menu.jsp"><button type="button" class="btn btn-secondary">Volver</button></a>
+				<a href="menu?page=listafacturas"><button type="button" class="btn btn-secondary">Volver</button></a>
 			</div>
+			
 	</form>
 </body>
 </html>

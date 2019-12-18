@@ -32,7 +32,7 @@
 
 <body>
 <h1 style="text-align: center;">Listado de Facturas</h1>
-<form action= "miForm" >
+<form action = "listadofacturas" method = "GET" >
 <table class="table table-striped">
   <thead>
     <tr>
@@ -48,7 +48,7 @@
  <c:forEach items="${listaFacturas}" var="f">
     <tr>
    	<input id = "idFactura" name = "idFactura" type="hidden" value="${f.getID()}" ">	
- 	<input id = "fechaEmision" name = "fechaEmision"  type="hidden"  value = "${f.getFechaEmision() != null ? f.getFechaEmision() : 'Sin emitir'}" ">	
+ 	<input id = "fechaEmision" name = "fechaEmision"  type="hidden"  value = "${f.getFechaEmision() != null ? f.getFechaEmision() : 'Sin emitir'}"">	
    	<input id = "anUsuario"  name = "anUsuario" type="hidden" value = "${f.getUsuario()}">
  	<input name = "importeTotal" id = "importeTotal" type="hidden"  value = "${f.getImporteTotal()}" >
  	<input name = "dniUsuario" id = "dniUsuario" type="hidden"  value = "${f.getUsuario().getDni()}">
@@ -59,23 +59,24 @@
       <td><c:out value = "${f.getUsuario().getDni()}"/><p></td>
       <td><c:out value = "${f.getImporteTotal()}"/><p></td>
       <td>
-       	<a href="factura/display?id=${f.getID()}"><button  type="Button"  class="btn btn-info">Ver factura</button></a>
-      	
+      	<c:if test ="${f.getHojas() != null and f.getFechaEmision() != null}" >
+      	<a href="menu?page=listahojasdeparte&idFactura=${f.getID()}"><button  type="Button"  class="btn btn-info">Ver hojas</button></a>
+    	</c:if>
       	<c:if test ="${f.getFechaEmision() == null}" >
-      		<a href="factura/edit?id=${f.getID()}"><button  type="Button"  class="btn btn-info">Editar</button></a>
-      		<a href="factura/delete?id=${f.getID()}"><button  type="Button"  class="btn btn-danger">Baja</button></a>
+      		<a href="listadofacturas?id=${f.getID()}&modo=edit"><button  type="Button"  class="btn btn-info">Editar</button></a>
+      		
+      		<a href="listadofacturas?id=${f.getID()}&modo=delete"><button  type="Button"  class="btn btn-danger">Baja</button></a>
       		<c:if test ="${f.getImporteTotal() != 0}" > 
-      			<a href="factura/emitir?id=${f.getID()}"><button  type="Button"  class="btn btn-success" name = "modo" id = "delete" value = 'emitir' >Emitir</button></a>
+      			<a href="listadofacturas?id=${f.getID()}&modo=emitir"><button  type="Button"  class="btn btn-success">Emitir</button></a>
       		</c:if>
       	</c:if>		
       </td>
     </tr>
    </c:forEach>
-
   </tbody>
 </table>
- <a href='JAVA-GIT/menu.jsp'><button type="Button" class="btn btn-primary">Volver</button></a>
-<a href="factura/new?id=0"><button type="Button" class="btn btn-secondary">Agregar factura</button></a>
+ <a href='menu'><button type="Button" class="btn btn-primary">Volver</button></a>
+<a href="listadofacturas?modo=new"><button type="Button" class="btn btn-secondary">Agregar factura</button></a>
   </form>
 </body>
 </html>

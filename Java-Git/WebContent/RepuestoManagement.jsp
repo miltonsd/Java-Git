@@ -21,13 +21,7 @@
 <link href="style/css/bootstrap.min.css" type = "text/css" rel="stylesheet">
 <link rel="stylesheet" href="style/css/bootstrap.css" >
 <link href= "style/css"type = "text/css" rel="stylesheet">
-<script type="text/javascript">
-	function submitForm(met)
-			{
-    		document.myForm.action=met;
-    		document.getElementById("myForm").submit();
-    		}  
-</script>
+
 </head>
 
 <body>

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 import business.BusinessRepuesto;
 import business.BusinessTipoRepuesto;
 import data.DataFactura;
@@ -49,10 +51,8 @@ public class RepuestoCrud extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Repuesto repuesto = new Repuesto();
-		Proveedor proveedor = new Proveedor();
-		TipoRepuesto tr = new TipoRepuesto();
-		repuesto.setTipoRepuesto(tr);
-		repuesto.setProveedor(proveedor);
+		repuesto.setTipoRepuesto(new TipoRepuesto());
+		repuesto.setProveedor(new Proveedor());
 		
 		switch(request.getParameter("modo"))
 		{
@@ -64,7 +64,12 @@ public class RepuestoCrud extends HttpServlet {
 			repuesto.setDescripcion((String)request.getParameter("descripcion"));
 			repuesto.setStock(Integer.parseInt(request.getParameter("stock")));
 			repuesto.setPrecioUnitario(Float.parseFloat(request.getParameter("precioUnitario")));
-			negocioRepuesto.Edit(repuesto);
+			try {
+				negocioRepuesto.Edit(repuesto);
+			} catch (MySQLIntegrityConstraintViolationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(repuesto.getID().toString() + repuesto.getStock() + repuesto.getProveedor().getID().toString() + repuesto.getTipoRepuesto().getID());
 			response.sendRedirect("menu?page=listarepuestos");
 			
@@ -75,7 +80,12 @@ public class RepuestoCrud extends HttpServlet {
 			repuesto.setDescripcion((String)request.getParameter("descripcion"));
 			repuesto.setStock(Integer.parseInt(request.getParameter("stock")));
 			repuesto.setPrecioUnitario(Float.parseFloat(request.getParameter("precioUnitario")));
-			negocioRepuesto.New(repuesto);
+			try {
+				negocioRepuesto.New(repuesto);
+			} catch (MySQLIntegrityConstraintViolationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			response.sendRedirect("menu?page=listarepuestos");
 			break;
 		default: 

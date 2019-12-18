@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 import business.BusinessProveedor;
 import business.BusinessRepuesto;
@@ -40,6 +43,7 @@ public class RepuestoManagement extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Repuesto repuesto = new Repuesto();
+		PrintWriter out=response.getWriter();
 		String modo = request.getParameter("modo");	
 		repuesto = negocioRepuesto.getOne((int) Integer.parseInt(request.getParameter("id")));
 		switch(modo)
@@ -67,8 +71,15 @@ public class RepuestoManagement extends HttpServlet {
 			break;	
 		
 		case "delete":
-			negocioRepuesto.Delete(repuesto);
-			response.sendRedirect("menu?page=listarepuestos");
+			try {
+			negocioRepuesto.Delete(repuesto);}
+			catch(Exception e)
+			{
+				  System.out.println(e.getMessage());
+				
+			}
+			finally {response.sendRedirect("menu?page=listarepuestos");}
+			
 			break;
 		default: 
 			request.getRequestDispatcher("error404.html").forward(request,response);

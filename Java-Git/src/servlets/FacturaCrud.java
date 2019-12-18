@@ -7,18 +7,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import business.BusinessFactura;
+import business.BusinessHojaDeParte;
+import business.BusinessProveedor;
+import business.BusinessRepuesto;
+import business.BusinessTipoRepuesto;
+import business.BusinessUsuario;
+import entities.Factura;
+import entities.Proveedor;
+import entities.Repuesto;
+import entities.TipoRepuesto;
+import entities.Usuario;
+
 /**
  * Servlet implementation class FacturaCrud
  */
-@WebServlet("/FacturaCrud")
+@WebServlet("/factura/*")
 public class FacturaCrud extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private BusinessRepuesto negocioRepuesto;
+    private BusinessTipoRepuesto negocioTipoRepuesto; 
+    private BusinessProveedor negocioProveedor; 
+    private BusinessFactura negocioFactura; 
+    private BusinessHojaDeParte negocioHojaDeParte; 
+    private BusinessUsuario negocioUsuario;    
     /**
      * @see HttpServlet#HttpServlet()
      */
     public FacturaCrud() {
         super();
+        negocioRepuesto 	= new BusinessRepuesto();
+        negocioTipoRepuesto = new BusinessTipoRepuesto();
+        negocioProveedor 	= new BusinessProveedor();
+        negocioFactura		= new BusinessFactura();
+        negocioHojaDeParte	= new BusinessHojaDeParte();
+        negocioUsuario		= new BusinessUsuario();
         // TODO Auto-generated constructor stub
     }
 
@@ -27,7 +50,7 @@ public class FacturaCrud extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -35,7 +58,31 @@ public class FacturaCrud extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		Factura factura = new Factura();
+		factura.setUsuario(new Usuario());
+		
+	
+		
+		switch(request.getParameter("modo"))
+		{
+		
+		case "edit":
+			factura.setID(Integer.parseInt(request.getParameter("idFactura")));
+			factura.getUsuario().setID(Integer.parseInt(request.getParameter("usuariosLista")));
+			factura.setImporteTotal(Float.parseFloat(request.getParameter("importeTotal")));	
+			negocioFactura.Edit(factura);
+			response.sendRedirect("menu?page=listafacturas");
+			
+			break;
+		case "new":
+			factura.getUsuario().setID(Integer.parseInt(request.getParameter("usuariosLista")));
+			factura.setImporteTotal(Integer.parseInt(request.getParameter("importeTotal")));	
+			negocioFactura.New(factura);
+			response.sendRedirect("menu?page=listafacturas");
+			break;
+		default: 
+			request.getRequestDispatcher("error404.html").forward(request,response);
+		}
 	}
 
 }

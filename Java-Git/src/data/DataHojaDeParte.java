@@ -25,6 +25,9 @@ public class DataHojaDeParte {
 						while(rs.next()) 
 					   {
 							entities.HojaDeParte hoja = new HojaDeParte();
+							hoja.setAutomovil(new Automovil());
+							hoja.setFactura(new Factura());
+							hoja.setMecanico(new Usuario());
 							hoja.setID(rs.getInt("id_hoja"));
 							hoja.getFactura().setID(rs.getInt("id_factura"));
 							hoja.getAutomovil().setID(rs.getString("id_patente"));
@@ -91,6 +94,9 @@ public class DataHojaDeParte {
 									while(rs.next()) 
 								   {
 										entities.HojaDeParte hoja = new HojaDeParte();
+										hoja.setAutomovil(new Automovil());
+										hoja.setFactura(new Factura());
+										hoja.setMecanico(new Usuario());
 										hoja.setID(rs.getInt("id_hoja"));
 										hoja.getFactura().setID(rs.getInt("id_factura"));
 										hoja.getAutomovil().setID(rs.getString("id_patente"));
@@ -154,6 +160,9 @@ public class DataHojaDeParte {
 					if(rs!=null && rs.next())  
 					{
 						hoja.setID(rs.getInt("id_hoja"));
+						hoja.setAutomovil(new Automovil());
+						hoja.setFactura(new Factura());
+						hoja.setMecanico(new Usuario());
 						hoja.getFactura().setID(rs.getInt("id_factura"));
 						hoja.getAutomovil().setID(rs.getString("id_patente"));
 						hoja.getMecanico().setID(rs.getInt("id_mecanico"));

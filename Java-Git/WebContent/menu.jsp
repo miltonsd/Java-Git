@@ -9,14 +9,6 @@
 <script type="text/javascript" src="style/js/menu.js"></script>
 <title>Insert title here</title>
 
-<script type="text/javascript">
-	function submitForm(met)
-			{
-    		
-    		document.getElementById("myForm").submit();
-    		}  
-	
-</script>
 </head>
 <body>
 <h1>Menu</h1>
@@ -28,7 +20,7 @@
 		<li><a href="#">Vehiculos</a>
 		<li><a href="/Java-Git/menu?page=listarepuestos" >Respuestos</a>
 		<li><a href="/Java-Git/menu?page=listafacturas">Facturacion</a>
-		<li><a href="#">Hoja de parte</a>
+		<li><a href="/Java-Git/menu?page=listahojasdeparte">Hoja de parte</a>
 		<li><a href="index.jsp">Salir</a>
 	</ul>
 </nav>

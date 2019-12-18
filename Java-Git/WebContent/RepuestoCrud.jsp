@@ -24,42 +24,40 @@
 <link rel="stylesheet" href="style/css/bootstrap.css">
 <link href="style/css" type="text/css" rel="stylesheet">
 
-<script>
+<script type = "text/javascript">
 function valida()
-{
-	var ok = true;
-	var descripcion	   = document.getElementById("descripcion").value;
-	var precioUnitario = document.getElementById("precioUnitario").value;
-	var cuit		   = document.getElementById("cuit").value;
-	
-    if (!/^([0-9])*$/.test(cuit))
-     {
-    	 alert("El valor del " + cuit + " no es un número")
-     	 ok = false;
-      }
-    var RE = /^\d*\.?\d*$/;
-	if (RE.test(precioUnitario)) {
-	       ok = true;
-	    }	else {
-	    	alert("El valor " + precioUnitario + " no es valido")
-	     	 ok = false;
-	    }
-	if(ok == false)
+{   var stock = document.getElementById('stock');
+	var precioUnitario = document.getElementById("precioUnitario");
+	if(stock.value == 0)
 	{
-    
-     }
-	else
-	{
-	  myForm.submit();
+   		alert("El stock es obligatorio");
+   	 	return false;
 	}
-	      
+	if(stock.value == 0)
+	{
+   		alert("El valor del precio es obligatorio");
+   	 	return false;
+	}
+	if (!/^([0-9])*$/.test(stock.value))
+	{
+		alert("El valor del stock no es un número valido");
+   		return false;
+	}
+	if (!/^\d*\.?\d*$/.test(precioUnitario.value))
+	{	
+		alert("El valor del precio unitario no es un número valido");
+		return false;
+	}
+
+	
+ 
 }
 
 </script>
 <title>Repuesto</title>
 </head>
 <body>
-<form action="repuesto" method="POST" id = "myForm" >
+<form action="repuesto" method="POST" id = "myForm" onSubmit="return valida();"  >
 <input id = "modo" name = "modo" type="hidden" value="${modo}" >	
 <input id = "id" name = "id" type="hidden" value="${repuesto.getID()}" >	
 		<div class="row">
@@ -84,7 +82,7 @@ function valida()
   	  		</div>
   	  		<div class="col">
    	  				<div class="col-sm-10">
-  							Stock :<input type="text" class="form-control" name = "stock"  value="${repuesto.getStock()}" required="required"   >
+  							Stock :<input type="text" class="form-control" name = "stock" id = "stock" value="${repuesto.getStock()}" required="required"   >
   					</div>
   			</div>
   	 	</div>
@@ -127,7 +125,7 @@ function valida()
 
 		</div>
 			<div align="center">
-				<button type="Button"  class="btn btn-primary" onClick = "valida();">Confirmar</button>
+				<button type="Submit"  class="btn btn-primary" >Confirmar</button>
 				<a href="menu?page=listarepuestos"><button type="button" class="btn btn-secondary">Volver</button></a>
 			</div>
 	</form>

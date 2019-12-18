@@ -12,9 +12,9 @@ import java.util.List;
 public class DataFactura {
 	// Traer todos
 	@SuppressWarnings("finally")
-	public List<Factura> GetAll()
+	public ArrayList<Factura> GetAll()
 	{
-		List<entities.Factura> facturas= new ArrayList<entities.Factura>() ;
+		ArrayList<entities.Factura> facturas= new ArrayList<entities.Factura>() ;
 		PreparedStatement pst=null;
 		ResultSet rs=null;
 		

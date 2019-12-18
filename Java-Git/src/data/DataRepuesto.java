@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 import entities.Proveedor;
 import entities.Repuesto;
 import entities.TipoRepuesto;
@@ -157,7 +159,7 @@ public class DataRepuesto
 
 		//ABM
 		
-		public void Delete(int ID)
+		public void Delete(int ID) throws MySQLIntegrityConstraintViolationException
 		{ 
 		  PreparedStatement stmt= null;
 			try 
@@ -257,14 +259,15 @@ public class DataRepuesto
 			
 			
 		}
-		public void Save(entities.Repuesto repuesto) 
+		public void Save(entities.Repuesto repuesto) throws MySQLIntegrityConstraintViolationException 
 		{
-			
+
 			switch(repuesto.getState())
 			
 			{
 			case Deleted:
 				this.Delete((int)repuesto.getID());
+				
 			break;
 			
 			case New:
