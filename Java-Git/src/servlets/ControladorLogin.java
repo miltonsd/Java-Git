@@ -44,6 +44,7 @@ public class ControladorLogin extends HttpServlet implements Servlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	
+		
 		HttpSession session = request.getSession();
 		usu.setEmail(request.getParameter("Email"));
 		usu.setPassword(request.getParameter("Password"));

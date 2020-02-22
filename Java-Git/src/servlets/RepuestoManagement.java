@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import business.BusinessProveedor;
 import business.BusinessRepuesto;
@@ -45,11 +46,19 @@ public class RepuestoManagement extends HttpServlet {
 		Repuesto repuesto = new Repuesto();
 		PrintWriter out=response.getWriter();
 		String modo = request.getParameter("modo");	
-		repuesto = negocioRepuesto.getOne((int) Integer.parseInt(request.getParameter("id")));
+		if(request.getAttribute("errormsg") != null)
+		{
+			request.setAttribute("errormsg", request.getAttribute("errormsg"));
+		}
+		if(request.getParameter("id") != null) 
+		{
+			repuesto = negocioRepuesto.getOne((int) Integer.parseInt(request.getParameter("id")));
+		}
+		
+		
 		switch(modo)
 		{
 		case "edit":
-			
 			request.setAttribute("tiporepuesto", negocioTipoRepuesto.getOne((int) repuesto.getTipoRepuesto().getID()));
 			request.setAttribute("listaTipoRepuesto", negocioTipoRepuesto.getAll());
 			request.setAttribute("proveedor", negocioProveedor.getOne((int) repuesto.getProveedor().getID()));
@@ -71,15 +80,11 @@ public class RepuestoManagement extends HttpServlet {
 			break;	
 		
 		case "delete":
-			try {
-			negocioRepuesto.Delete(repuesto);}
-			catch(Exception e)
-			{
-				  System.out.println(e.getMessage());
+				try{
+				negocioRepuesto.Delete(repuesto);
+				}catch(Exception e) {throw e;}
+				finally{request.getRequestDispatcher("menu?page=listarepuestos").forward(request, response);}
 				
-			}
-			finally {response.sendRedirect("menu?page=listarepuestos");}
-			
 			break;
 		default: 
 			request.getRequestDispatcher("error404.html").forward(request,response);

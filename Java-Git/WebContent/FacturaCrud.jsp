@@ -26,11 +26,7 @@
 <title>Factura</title>
 </head>
 <body>
-<c:if test="${modo =='edit'}">
-<div align="Left">
-<a href="menu?page=listahojasdeparte&idFactura=${idf} "><button type="Button"  class="btn btn-primary">Hojas de parte</button></a>
-</div>
-</c:if>
+
 <form action="factura" method="POST">
 <input id = "modo" name = "modo" type="hidden" value="${modo}" >	
 		<div class="row">
@@ -43,17 +39,23 @@
   			
   			<!-- Campo FechaEmision -->
   			<div class="col">
-  				<c:if test ="${factura.getFechaEmision() != null}" > 
+  				<c:if test ="${factura.getFechaEmision() != null and mode!='emitir'}" > 
   					<div class="col-sm-10">
   						Fecha de emision :<input type="text" class="form-control" name = "fechaEmision"  value="${factura.getFechaEmision()}"  readonly>
   					</div>
   	  			</c:if>
-  	  			<c:if test ="${factura.getFechaEmision() == null}" > 
+  	  			<c:if test ="${factura.getFechaEmision() == null and mode!='emitir'}" > 
   					<div class="col-sm-10">
   						Fecha de emision :<input type="text" class="form-control" name = "fechaEmision"  value="Sin emitir"  readonly>
   					</div>
   	  			</c:if>
+  	  			<c:if test ="${factura.getFechaEmision() == null and mode=='emitir'}" > 
+  					<div class="col-sm-10">
+  						Fecha de emision :<input type="text" class="form-control" name = "fechaEmision"  value="${datetoday}"  readonly>
+  					</div>
+  	  			</c:if>
   	  	 	</div>
+  	  	 	
   	  	 </div>
   	  	 
   	  	 <!-- Campo ImporteTotal -->
@@ -89,6 +91,8 @@
 							<option id = usuarioIDLista value="${usu.getID()}">${usu.getDni()}-${usu.getApellido()}, ${usu.getNombre()}</option>
 						</c:forEach>
 						</select>
+
+						
 					</div>
 				</div>
 			</c:if>

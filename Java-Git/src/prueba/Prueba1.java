@@ -20,7 +20,8 @@ public class Prueba1
 {
 	private static final States New = null;
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		System.out.println("Mostrar todo");
 		DataUsuario du= new DataUsuario();
 		ArrayList<entities.Usuario> Usuarios = du.GetAll();

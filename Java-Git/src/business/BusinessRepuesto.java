@@ -1,8 +1,9 @@
 package business;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import data.DataRepuesto;
 import entities.Entity.States;
@@ -21,25 +22,33 @@ public class BusinessRepuesto {
 		return rep.GetAll();
 		
 	}
-	public void Delete(Repuesto rep) throws MySQLIntegrityConstraintViolationException
+	public ArrayList<entities.Repuesto> getAll(int id_tiporepuesto)
+	{
+		DataRepuesto rep = new DataRepuesto();
+		return rep.GetAll(id_tiporepuesto);
+		
+	}
+	public void Delete(Repuesto rep) 
 	{	
 		DataRepuesto dr = new DataRepuesto();
 		rep.setState(States.Deleted);
+		
 		dr.Save(rep);
+		
 	
 
 	}
 		
 		
 	
-	public void Edit(Repuesto rep) throws MySQLIntegrityConstraintViolationException
+	public void Edit(Repuesto rep) 
 	{	
 		DataRepuesto dr = new DataRepuesto();
 		rep.setState(States.Modified);
 		dr.Save(rep);
 		
 	}
-	public void New(Repuesto rep) throws MySQLIntegrityConstraintViolationException
+	public void New(Repuesto rep) 
 	{	
 		DataRepuesto dr = new DataRepuesto();
 		rep.setState(States.New);

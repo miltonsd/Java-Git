@@ -17,10 +17,10 @@
 <nav class="nav">
 	<ul>
 		<li><a href="index.jsp">Usuarios</a>
-		<li><a href="#">Vehiculos</a>
+		<li><a href="/Java-Git/menu?page=listaautomoviles">Vehiculos</a>
 		<li><a href="/Java-Git/menu?page=listarepuestos" >Respuestos</a>
 		<li><a href="/Java-Git/menu?page=listafacturas">Facturacion</a>
-		<li><a href="/Java-Git/menu?page=listahojasdeparte">Hoja de parte</a>
+		
 		<li><a href="index.jsp">Salir</a>
 	</ul>
 </nav>

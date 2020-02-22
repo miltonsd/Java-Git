@@ -16,5 +16,6 @@ public class BusinessTipoRepuesto {
 		return tr.GetAll();
 		
 	}
+	
 
 }

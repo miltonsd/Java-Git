@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
-
 import business.BusinessRepuesto;
 import business.BusinessTipoRepuesto;
 import data.DataFactura;
@@ -56,7 +54,7 @@ public class RepuestoCrud extends HttpServlet {
 		
 		switch(request.getParameter("modo"))
 		{
-		
+	
 		case "edit":
 			repuesto.getTipoRepuesto().setID(Integer.parseInt(request.getParameter("tipoRepuestoLista")));
 			repuesto.setID(Integer.parseInt(request.getParameter("id")));
@@ -66,7 +64,7 @@ public class RepuestoCrud extends HttpServlet {
 			repuesto.setPrecioUnitario(Float.parseFloat(request.getParameter("precioUnitario")));
 			try {
 				negocioRepuesto.Edit(repuesto);
-			} catch (MySQLIntegrityConstraintViolationException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -82,7 +80,7 @@ public class RepuestoCrud extends HttpServlet {
 			repuesto.setPrecioUnitario(Float.parseFloat(request.getParameter("precioUnitario")));
 			try {
 				negocioRepuesto.New(repuesto);
-			} catch (MySQLIntegrityConstraintViolationException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

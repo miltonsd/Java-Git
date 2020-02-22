@@ -37,7 +37,7 @@
   </head>
   <body class="text-center">
   
-<form class="form-signin" method="POST" action="ControladorLogin">
+<form class="form-signin" method="POST" action="Login">
   <img class="mb-4" src="https://getbootstrap.com/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
   <h1 class="h3 mb-3 font-weight-normal">Ingrese su correo</h1>
   <!-- Email de acceso -->

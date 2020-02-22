@@ -1,8 +1,6 @@
 	package entities;
 
-import entities.Entity.States;
-
-public class HojaRepuestos 
+public class HojaRepuesto implements Entity
 {
 	
 	private Repuesto repuesto;
@@ -31,12 +29,12 @@ public class HojaRepuestos
 	{
 		this.repuesto=repuesto;
 	}
-	public HojaDeParte getHoja()
+	public HojaDeParte getHojaDeParte()
 	{
 		return this.hoja;
 		
 	}
-	public void setIDHoja(HojaDeParte hoja)
+	public void setHojaDeParte(HojaDeParte hoja)
 	{
 		this.hoja=hoja;
 	}
@@ -58,17 +56,20 @@ public class HojaRepuestos
 		
 	}
 	public void setPrecioTotal(float preciototal)
-	{
-		this.preciototal=preciototal;
+	{   
+		this.preciototal = preciototal;
+		
+	}
+	public float calcularPrecioTotal()
+	{   
+		this.preciototal=0;
+		this.preciototal = this.getRepuesto().getPrecioUnitario() * this.getCantidad();
+		return this.preciototal;
+		
 	}
 	
-	public float calcularPrecioTotal()
-	{
-		
-		float ptotal=0;
-		
-		return ptotal = this.getRepuesto().getPrecioUnitario() * this.getCantidad();
-	}
+	
+	
 	
 	
 	

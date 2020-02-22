@@ -4,16 +4,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
-
 import entities.Proveedor;
 import entities.Repuesto;
 import entities.TipoRepuesto;
 
 public class DataRepuesto
 {
-	// Traer todos
+		// Traer todos
 		@SuppressWarnings("finally")
 		public ArrayList<entities.Repuesto> GetAll()
 		{
@@ -35,18 +32,14 @@ public class DataRepuesto
 						entities.TipoRepuesto tr = new TipoRepuesto();
 						entities.Proveedor prove = new Proveedor();
 						repuesto.setProveedor(prove);
-						repuesto.getProveedor().setID(rs.getInt("cuit"));
-						
+						repuesto.getProveedor().setID(rs.getInt("cuit"));						
 						repuesto.setTipoRepuesto(tr);
-					
-						repuesto.getTipoRepuesto().setID(rs.getInt("id_tipo_repuesto"));
-					
+						repuesto.getTipoRepuesto().setID(rs.getInt("id_tipo_repuesto"));					
 						repuesto.setID(rs.getInt("id_repuesto"));
 						repuesto.setDescripcion(rs.getString("descripcion"));
 						repuesto.setPrecioUnitario(rs.getFloat("precio_unitario"));
 						repuesto.setStock(rs.getInt("stock"));
 						repuesto.setPuntoPedido(rs.getInt("punto_pedido"));
-						
 						repuestos.add(repuesto);
 						
 					}
@@ -89,6 +82,78 @@ public class DataRepuesto
 					
 		}
 
+		// Traer todos por tipoderepuesto
+		@SuppressWarnings("finally")
+		public ArrayList<entities.Repuesto> GetAll(int id_tipo_repuesto)
+		{
+			ArrayList<entities.Repuesto> repuestos = new ArrayList<>() ;
+			PreparedStatement pst=null;
+			ResultSet rs=null;
+			
+			try 
+			{
+			    pst= FactoryConexion.getInstancia().getConn().prepareStatement
+						("SELECT * from repuestos where id_tipo_repuesto = ? " );
+				pst.setInt(1, id_tipo_repuesto);	
+			    rs= pst.executeQuery();
+				if(rs!=null) 
+				{
+					while(rs.next()) 
+				   {
+						entities.Repuesto repuesto = new Repuesto();
+						entities.TipoRepuesto tr = new TipoRepuesto();
+						entities.Proveedor prove = new Proveedor();
+						repuesto.setProveedor(prove);
+						repuesto.getProveedor().setID(rs.getInt("cuit"));						
+						repuesto.setTipoRepuesto(tr);
+						repuesto.getTipoRepuesto().setID(rs.getInt("id_tipo_repuesto"));					
+						repuesto.setID(rs.getInt("id_repuesto"));
+						repuesto.setDescripcion(rs.getString("descripcion"));
+						repuesto.setPrecioUnitario(rs.getFloat("precio_unitario"));
+						repuesto.setStock(rs.getInt("stock"));
+						repuesto.setPuntoPedido(rs.getInt("punto_pedido"));
+						repuestos.add(repuesto);
+						
+					}
+					
+			    }
+			}
+			
+			catch (SQLException e)
+			{
+			     e.printStackTrace();
+			}
+					
+			
+			finally 
+			{
+				
+				try 
+			   {
+				if(rs!=null) 
+				{
+					rs.close();
+				}
+				
+				if(pst!=null)
+				{
+					pst.close();
+				}
+				
+				FactoryConexion.getInstancia().releaseConn();
+				
+			     } 
+				catch (SQLException e) 
+			  {
+				e.printStackTrace();
+				
+			  }
+				
+				return repuestos;
+	    	}
+					
+		}
+		
 		// Traer uno
 		@SuppressWarnings("finally")
 		public entities.Repuesto GetOne(int idrepuesto)
@@ -156,10 +221,11 @@ public class DataRepuesto
 	    	}
 				
 		}
-
+		
+		
 		//ABM
 		
-		public void Delete(int ID) throws MySQLIntegrityConstraintViolationException
+		public void Delete(int ID) 
 		{ 
 		  PreparedStatement stmt= null;
 			try 
@@ -259,7 +325,7 @@ public class DataRepuesto
 			
 			
 		}
-		public void Save(entities.Repuesto repuesto) throws MySQLIntegrityConstraintViolationException 
+		public void Save(entities.Repuesto repuesto) 
 		{
 
 			switch(repuesto.getState())
