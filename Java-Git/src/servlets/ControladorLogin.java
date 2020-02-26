@@ -25,8 +25,8 @@ public class ControladorLogin extends HttpServlet implements Servlet {
      */
     public ControladorLogin() {
         super();
-        BusinessUsuario negocioUsuario = new BusinessUsuario();
-    	Usuario usu = new Usuario();
+        negocioUsuario = new BusinessUsuario();
+    	usu = new Usuario();	
         // TODO Auto-generated constructor stub
     }
 
@@ -43,7 +43,6 @@ public class ControladorLogin extends HttpServlet implements Servlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
 		
 		HttpSession session = request.getSession();
 		usu.setEmail(request.getParameter("Email"));
@@ -51,14 +50,15 @@ public class ControladorLogin extends HttpServlet implements Servlet {
 		
 		if(negocioUsuario.verificarUsuario(usu))
 		{
-			session.setAttribute("UsuarioId", negocioUsuario.getOnePorEmail(usu.getEmail()).getID());
-			session.setAttribute("UsuarioNombre", negocioUsuario.getOnePorEmail(usu.getEmail()).getNombre());
-			session.setAttribute("UsuarioRol", negocioUsuario.getOnePorEmail(usu.getEmail()).getRol());
-			response.sendRedirect("/menu");
+			Usuario u= negocioUsuario.getOnePorEmail(usu.getEmail());
+			session.setAttribute("UsuarioId", u.getID());
+			session.setAttribute("UsuarioNombre", u.getNombre());
+			session.setAttribute("UsuarioRol", u.getRol());
+			response.sendRedirect("menu");
 		}
 		else
 		{
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("index.jsp");
 		}
 	}
 

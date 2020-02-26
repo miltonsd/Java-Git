@@ -39,7 +39,7 @@ public class BusinessUsuario {
 		}
 		return du.GetAll(idrol);
 	}
-
+/*
 	public boolean verificarUsuario(Usuario usu) {
 		String sha256hexStr = DigestUtils.sha256Hex(usu.getEmail() + du.getParametro() + usu.getPassword());
 		if (du.getOnePorEmail(usu.getEmail()).getPassword().equals(sha256hexStr)) {
@@ -48,7 +48,17 @@ public class BusinessUsuario {
 			return false;
 		}
 	}
-
+*/
+	
+	public boolean verificarUsuario(Usuario usu) {
+		Usuario u= this.getOnePorEmail(usu.getEmail());
+		if (u.getPassword().contentEquals(usu.getPassword())){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public Usuario encriptarUsuario(Usuario usu) {
 		par = du.getParametro();
 		String sha256hexStr = DigestUtils.sha256Hex(usu.getEmail() + par + usu.getPassword());

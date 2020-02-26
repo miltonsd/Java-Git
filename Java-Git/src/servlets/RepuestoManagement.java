@@ -22,7 +22,7 @@ import entities.TipoRepuesto;
 /**
  * Servlet implementation class RepuestoManagement
  */
-@WebServlet({ "/listadorepuestos/*","" })
+@WebServlet({ "/listadorepuestos/*"})
 public class RepuestoManagement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BusinessRepuesto negocioRepuesto;
@@ -45,7 +45,7 @@ public class RepuestoManagement extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Repuesto repuesto = new Repuesto();
 		PrintWriter out=response.getWriter();
-		String modo = request.getParameter("modo");	
+		String modo =""+ request.getParameter("modo");	
 		if(request.getAttribute("errormsg") != null)
 		{
 			request.setAttribute("errormsg", request.getAttribute("errormsg"));
