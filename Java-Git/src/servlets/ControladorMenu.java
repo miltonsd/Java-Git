@@ -22,6 +22,7 @@ import entities.Factura;
 import entities.HojaDeParte;
 import entities.HojaRepuesto;
 import entities.Repuesto;
+import entities.Usuario;
 
 /**
  * Servlet implementation class ControladorMenu
@@ -148,13 +149,17 @@ public class ControladorMenu extends HttpServlet {
 				request.getRequestDispatcher("HojaRepuestoManagement.jsp").forward(request, response);
 				break;
 			case "listaautomoviles":
-
 				ArrayList<Automovil> automoviles = negocioAutomovil.getAll();
 				for (Automovil a : automoviles) {
 					a.setCliente(negocioUsuario.getOne((int) a.getCliente().getID()));
 				}
 				request.setAttribute("listaAutomoviles", automoviles);
 				request.getRequestDispatcher("AutomovilManagement.jsp").forward(request, response);
+				break;
+			case "listausers":
+				ArrayList<Usuario> usuarios = negocioUsuario.getAll();
+				request.setAttribute("listaUsers", usuarios);
+				request.getRequestDispatcher("UsuarioManagement.jsp").forward(request, response);
 				break;
 			default:
 				request.getRequestDispatcher("error404.html").forward(request, response);
